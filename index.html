@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杨华 · 结肠癌术前化疗管理手册</title>
+<style>
+  :root {
+    --bg: #FFFBF5;
+    --card-bg: #FFFFFF;
+    --primary: #4A90A4;
+    --primary-light: #E8F4F8;
+    --accent-warm: #F5A623;
+    --accent-warm-light: #FFF3E0;
+    --success: #6BAF7B;
+    --success-light: #EDF7EF;
+    --info: #7B8CC4;
+    --info-light: #EDF0FA;
+    --danger: #E07B6C;
+    --danger-light: #FDF0EE;
+    --danger-dark: #C0392B;
+    --purple: #9B59B6;
+    --purple-light: #F5EEFA;
+    --text: #2C3E50;
+    --text-secondary: #5A6C7D;
+    --text-light: #8899AA;
+    --border: #E8ECF0;
+    --radius: 16px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width:720px; margin:0 auto; padding:32px 24px 48px; }
+
+  .header {
+    background: linear-gradient(135deg, #3D7A8E 0%, #4A90A4 50%, #5BA4BD 100%);
+    border-radius: var(--radius);
+    padding: 40px 32px 36px;
+    color: #FFF;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before { content:''; position:absolute; top:-60px; right:-40px; width:160px; height:160px; background:rgba(255,255,255,0.08); border-radius:50%; }
+  .header::after { content:''; position:absolute; bottom:-30px; left:-30px; width:100px; height:100px; background:rgba(255,255,255,0.06); border-radius:50%; }
+  .header h1 { font-size:30px; font-weight:700; letter-spacing:2px; margin-bottom:12px; position:relative; z-index:1; }
+  .header .subtitle { font-size:20px; opacity:0.9; font-weight:400; position:relative; z-index:1; }
+  .header .decor { margin-top:20px; font-size:48px; position:relative; z-index:1; }
+
+  .info-bar { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+  .info-tag {
+    flex:1 1 calc(50% - 6px); min-width:140px;
+    background:var(--card-bg); border-radius:12px; padding:14px 16px;
+    box-shadow:var(--shadow); display:flex; align-items:center; gap:10px;
+  }
+  .info-tag .icon { font-size:26px; flex-shrink:0; }
+  .info-tag .label { font-size:13px; color:var(--text-light); line-height:1.3; }
+  .info-tag .value { font-size:16px; font-weight:600; color:var(--text); line-height:1.3; }
+
+  .section { margin-top:28px; }
+  .section-header { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  .section-icon {
+    width:44px; height:44px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; flex-shrink:0;
+  }
+  .section-title { font-size:24px; font-weight:700; color:var(--text); }
+  .icon-blue { background:var(--primary-light); }
+  .icon-green { background:var(--success-light); }
+  .icon-orange { background:var(--accent-warm-light); }
+  .icon-purple { background:var(--purple-light); }
+  .icon-red { background:var(--danger-light); }
+
+  .card { background:var(--card-bg); border-radius:var(--radius); padding:24px 24px 28px; box-shadow:var(--shadow); }
+  .card + .card { margin-top:16px; }
+
+  .highlight-box {
+    border-radius:12px; padding:18px 22px; margin:16px 0;
+    font-size:17px; line-height:1.75;
+  }
+  .highlight-box .hl-icon { font-size:22px; margin-right:8px; }
+  .hl-green { background:var(--success-light); border-left:4px solid var(--success); }
+  .hl-blue { background:var(--primary-light); border-left:4px solid var(--primary); }
+  .hl-orange { background:var(--accent-warm-light); border-left:4px solid var(--accent-warm); }
+  .hl-red { background:var(--danger-light); border-left:4px solid var(--danger); }
+  .hl-purple { background:var(--purple-light); border-left:4px solid var(--purple); }
+
+  .danger-zone {
+    background: linear-gradient(135deg, #FFF5F5, #FFF0F0);
+    border: 2px solid #F5C6CB;
+    border-radius: var(--radius);
+    padding: 0 0 20px 0;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .danger-zone .dz-header {
+    padding: 16px 24px;
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .dz-red .dz-header { background: linear-gradient(135deg, #E07B6C, #C0392B); }
+  .dz-red { border-color: #F5C6CB; }
+  .dz-orange { border-color:#FFD4C4; background:linear-gradient(135deg,#FFFBF5,#FFF8F0); }
+  .dz-orange .dz-header { background:linear-gradient(135deg,#E8960C,#C07000); }
+  .dz-yellow { border-color:#FFE0A0; background:linear-gradient(135deg,#FFFEFA,#FFFDE8); }
+  .dz-yellow .dz-header { background:linear-gradient(135deg,#B7950B,#8B7100); }
+  .dz-blue { border-color:#C8D6E5; background:linear-gradient(135deg,#F8FAFC,#F0F4F8); }
+  .dz-blue .dz-header { background:linear-gradient(135deg,#7B8CC4,#5A6AA0); }
+
+  .danger-zone .dz-body { padding: 20px 24px 0; }
+  .danger-zone .dz-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #FADBD8;
+    align-items: flex-start;
+  }
+  .danger-zone .dz-item:last-child { border-bottom: none; }
+  .danger-zone .dz-num {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    color: #FFF;
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .dz-red .dz-num { background: var(--danger); }
+  .dz-orange .dz-num { background: #F5A623; }
+  .dz-yellow .dz-num { background: #D4A017; }
+  .dz-blue .dz-num { background: #7B8CC4; }
+  .danger-zone .dz-text { font-size: 17px; line-height: 1.7; }
+  .danger-zone .dz-text strong { color: var(--danger-dark); }
+  .dz-orange .dz-text strong { color: #C07000; }
+  .dz-yellow .dz-text strong { color: #8B7100; }
+  .dz-blue .dz-text strong { color: #5A6AA0; }
+
+  .warning-card {
+    background: linear-gradient(135deg, #FFF5F0, #FFF8F5);
+    border: 2px solid #FFD4C4;
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+  .warning-card h3 { color:var(--danger); font-size:20px; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .warning-card p { font-size:17px; line-height:1.75; }
+
+  .risk-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+  }
+  .risk-table td {
+    padding: 14px 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .risk-table td:first-child { width:44px; text-align:center; font-size:24px; }
+  .risk-table td:nth-child(2) { font-weight:700; font-size:17px; white-space:nowrap; }
+  .risk-table td:nth-child(3) { color:var(--text-secondary); font-size:16px; }
+  .risk-row-red { background:#FFF5F5; }
+  .risk-row-red td:first-child { border-radius:10px 0 0 10px; }
+  .risk-row-red td:last-child { border-radius:0 10px 10px 0; }
+  .risk-row-orange { background:#FFF8F0; }
+  .risk-row-orange td:first-child { border-radius:10px 0 0 10px; }
+  .risk-row-orange td:last-child { border-radius:0 10px 10px 0; }
+
+  .gene-card {
+    border-radius: 12px;
+    padding: 20px 18px;
+    text-align: center;
+    border: 2px solid;
+  }
+  .gene-card .gene-icon { font-size: 28px; margin-bottom: 6px; }
+  .gene-card .gene-name { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
+  .gene-card .gene-result { font-size: 15px; margin-bottom: 4px; }
+  .gene-card .gene-msg { font-size: 14px; line-height: 1.5; }
+  .gene-good { background: #EDF7EF; border-color: #A3D9B1; }
+  .gene-good .gene-name { color: #6BAF7B; }
+  .gene-good .gene-msg { color: #5A9A6A; }
+  .gene-info { background: #EDF0FA; border-color: #B3BCE0; }
+  .gene-info .gene-name { color: #7B8CC4; }
+  .gene-info .gene-msg { color: #6A78B0; }
+  .gene-warn { background: #FFF3E0; border-color: #F5C77D; }
+  .gene-warn .gene-name { color: #E8960C; }
+  .gene-warn .gene-msg { color: #B8750A; }
+
+  .timeline { position:relative; padding-left:32px; }
+  .timeline::before { content:''; position:absolute; left:11px; top:8px; bottom:8px; width:3px; background:var(--primary-light); border-radius:2px; }
+  .tl-item { position:relative; margin-bottom:20px; padding:16px 18px; background:var(--card-bg); border-radius:12px; box-shadow:var(--shadow); }
+  .tl-item:last-child { margin-bottom:0; }
+  .tl-dot {
+    position:absolute; left:-26px; top:22px;
+    width:14px; height:14px; border-radius:50%;
+    border:3px solid #FFF; box-shadow:0 0 0 3px var(--primary); background:var(--primary);
+  }
+  .tl-date { font-size:14px; color:var(--text-light); margin-bottom:4px; }
+  .tl-text { font-size:17px; line-height:1.7; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .grid-item { background:var(--card-bg); border-radius:12px; padding:18px 16px; text-align:center; box-shadow:var(--shadow); }
+  .grid-item .g-icon { font-size:32px; margin-bottom:8px; }
+  .grid-item .g-text { font-size:16px; line-height:1.6; color:var(--text-secondary); }
+  .grid-item .g-label { font-size:18px; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .grid-item.do { border-top:3px solid var(--success); }
+  .grid-item.avoid { border-top:3px solid var(--danger); }
+
+  .step-list { list-style:none; padding:0; }
+  .step-item { display:flex; gap:14px; padding:14px 0; border-bottom:1px dashed var(--border); }
+  .step-item:last-child { border-bottom:none; }
+  .step-num {
+    width:36px; height:36px; border-radius:50%;
+    background:var(--primary); color:#FFF; font-weight:700; font-size:18px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;
+  }
+  .step-content { font-size:17px; line-height:1.75; }
+  .step-content strong { color:var(--primary); }
+
+  /* Staging uncertainty banner */
+  .staging-banner {
+    background: linear-gradient(135deg, #FFF8F0, #FFEDD5);
+    border: 2px solid #F5A623;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .staging-banner .sb-icon { font-size: 36px; margin-bottom: 8px; }
+  .staging-banner h3 { color: #E8960C; font-size: 20px; margin-bottom: 8px; }
+  .staging-banner p { font-size: 16px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* Chemo cycle table */
+  .chemo-cycle {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .chemo-cycle .cycle-card {
+    flex: 1;
+    min-width: 100px;
+    background: var(--primary-light);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .chemo-cycle .cycle-card .cc-num { font-size: 28px; font-weight: 700; color: var(--primary); }
+  .chemo-cycle .cycle-card .cc-label { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+  .chemo-cycle .cycle-card.current { background: #FFF3E0; }
+  .chemo-cycle .cycle-card.current .cc-num { color: var(--accent-warm); }
+  .chemo-cycle .cycle-card.milestone { background: #EDF7EF; }
+  .chemo-cycle .cycle-card.milestone .cc-num { color: var(--success); }
+
+  .footer {
+    margin-top:36px;
+    background: linear-gradient(135deg, #3D7A8E 0%, #4A90A4 100%);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    color:#FFF;
+    text-align:center;
+  }
+  .footer h2 { font-size:22px; font-weight:600; margin-bottom:16px; letter-spacing:1px; }
+  .footer .contact-row { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .footer .contact-item {
+    background:rgba(255,255,255,0.15); border-radius:10px; padding:12px 20px; font-size:16px;
+  }
+  .footer .contact-item strong { display:block; font-size:13px; opacity:0.8; margin-bottom:2px; }
+  .footer .bless { margin-top:20px; font-size:30px; letter-spacing:4px; }
+
+  @media (max-width: 480px) {
+    .page { padding:20px 14px 36px; }
+    .header { padding:30px 20px 28px; }
+    .header h1 { font-size:26px; }
+    .header .subtitle { font-size:17px; }
+    .section-title { font-size:21px; }
+    .grid-2 { grid-template-columns:1fr; }
+    .risk-table td:nth-child(2) { white-space:normal; }
+  }
+  @media print {
+    body { background:#FFF; }
+    .page { max-width:100%; padding:20px; }
+    .card, .info-tag, .grid-item, .tl-item { box-shadow:none; border:1px solid #E0E0E0; }
+    .header, .footer, .danger-zone .dz-header { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <div class="decor">🌸</div>
+    <h1>杨华 · 化疗期管理手册</h1>
+    <div class="subtitle">乙状结肠中分化腺癌 · 新辅助化疗 → 术前评估</div>
+  </div>
+
+  <!-- ===== 基本信息 ===== -->
+  <div class="info-bar">
+    <div class="info-tag">
+      <span class="icon">👩</span>
+      <div>
+        <div class="label">姓名 / 年龄</div>
+        <div class="value">杨华 · 49岁 · 女</div>
+      </div>
+    </div>
+    <div class="info-tag">
+      <span class="icon">🏥</span>
+      <div>
+        <div class="label">诊治医院</div>
+        <div class="value">中南大学湘雅医院</div>
+      </div>
+    </div>
+    <div class="info-tag">
+      <span class="icon">📋</span>
+      <div>
+        <div class="label">病理诊断</div>
+        <div class="value">乙状结肠中分化腺癌</div>
+      </div>
+    </div>
+    <div class="info-tag">
+      <span class="icon">🧬</span>
+      <div>
+        <div class="label">分子分型</div>
+        <div class="value">RAS/BRAF野生型 · MSS</div>
+      </div>
+    </div>
+    <div class="info-tag">
+      <span class="icon">💉</span>
+      <div>
+        <div class="label">当前阶段</div>
+        <div class="value">新辅助化疗中 · 术前</div>
+      </div>
+    </div>
+    <div class="info-tag">
+      <span class="icon">💓</span>
+      <div>
+        <div class="label">合并基础病</div>
+        <div class="value">2型糖尿病 · 高血压2级</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 分期不确定性提示 ===== -->
+  <div class="staging-banner">
+    <div class="sb-icon">🔍</div>
+    <h3>当前临床分期尚未完全明确</h3>
+    <p>
+      <strong>已知：</strong>原发灶为乙状结肠中分化腺癌，基因检测（组织样本）已完成。<br>
+      <strong>存疑：</strong>腹部触及一肿块，影像学提示<strong>可疑转移灶</strong>，但<strong>未行穿刺活检</strong>确认。<br>
+      <strong>未做PET-CT原因：</strong>因已开始新辅助化疗，PET-CT在化疗中的鉴别价值受限，<br>医生计划在<strong>手术时一并切除该肿块送病理化验</strong>，术中/术后方可明确分期。
+    </p>
+    <div style="display:flex; gap:14px; margin-top:16px; justify-content:center; flex-wrap:wrap;">
+      <div style="background:#EDF7EF; border-radius:10px; padding:12px 18px; text-align:center;">
+        <div style="font-size:22px;">✅</div>
+        <strong style="font-size:16px; color:#6BAF7B;">如果肿块非转移</strong><br>
+        <span style="font-size:14px; color:var(--text-secondary);">分期可能是II-III期<br>根治性手术机会大</span>
+      </div>
+      <div style="background:#FFF3E0; border-radius:10px; padding:12px 18px; text-align:center;">
+        <div style="font-size:22px;">⚠️</div>
+        <strong style="font-size:16px; color:#E8960C;">如果肿块为转移</strong><br>
+        <span style="font-size:14px; color:var(--text-secondary);">分期为IV期<br>治疗策略需重新评估</span>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:15px; color:var(--text-light);">
+      ⏳ <strong>关键节点：</strong>化疗结束后行增强CT评估 → 综合判断 → 制定手术方案（含肿块一并切除计划）
+    </p>
+  </div>
+
+  <!-- ===== 一、疾病概述 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-blue">📖</div>
+      <div class="section-title">当前病情概述</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:18px; line-height:2;">
+        诊断：<strong style="color:#4A90A4; font-size:20px;">乙状结肠中分化腺癌</strong>，目前处于<strong style="color:#9B59B6;">新辅助化疗阶段</strong>。
+      </p>
+
+      <div style="margin-top:20px; text-align:center;">
+        <svg viewBox="0 0 680 200" width="680" height="200">
+          <rect x="40" y="20" width="120" height="30" rx="14" fill="#E8F4F8" stroke="#4A90A4" stroke-width="2.5"/>
+          <text x="100" y="40" text-anchor="middle" font-size="12" fill="#4A90A4">升结肠</text>
+          <rect x="40" y="50" width="30" height="70" rx="14" fill="#E8F4F8" stroke="#4A90A4" stroke-width="2.5"/>
+          <rect x="40" y="120" width="140" height="30" rx="14" fill="#E8F4F8" stroke="#4A90A4" stroke-width="2.5"/>
+          <text x="110" y="140" text-anchor="middle" font-size="12" fill="#4A90A4">横结肠</text>
+          <rect x="180" y="50" width="30" height="70" rx="14" fill="#E8F4F8" stroke="#4A90A4" stroke-width="2.5"/>
+          <text x="210" y="88" text-anchor="middle" font-size="11" fill="#4A90A4" transform="rotate(-90,210,88)">降结肠</text>
+          <path d="M 195 120 Q 195 165 230 165 Q 270 165 270 135 Q 270 100 250 100 Q 230 100 230 75 L 230 50" fill="none" stroke="#4A90A4" stroke-width="2.5"/>
+          <!-- Primary tumor -->
+          <circle cx="245" cy="135" r="22" fill="#FFE4E1" stroke="#E07B6C" stroke-width="3"/>
+          <text x="245" y="140" text-anchor="middle" font-size="13" fill="#E07B6C" font-weight="700">原发灶</text>
+          <!-- Suspicious mass with question mark -->
+          <circle cx="400" cy="155" r="20" fill="#FFF3E0" stroke="#F5A623" stroke-width="2.5" stroke-dasharray="6,3"/>
+          <text x="400" y="160" text-anchor="middle" font-size="14" fill="#E8960C" font-weight="700">可疑肿块?</text>
+          <line x1="265" y1="140" x2="380" y2="152" stroke="#F5A623" stroke-width="1.5" stroke-dasharray="5,4"/>
+          <!-- Annotation -->
+          <text x="430" y="50" font-size="12" fill="#4A90A4" font-weight="600">乙状结肠（原发灶）</text>
+          <line x1="270" y1="135" x2="430" y2="65" stroke="#4A90A4" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="270" cy="135" r="3" fill="#4A90A4"/>
+          <text x="430" y="80" font-size="12" fill="#E8960C" font-weight="600">腹部可疑占位</text>
+          <text x="430" y="98" font-size="11" fill="#999">待手术切除后病理确认</text>
+          <rect x="310" y="170" width="340" height="24" rx="6" fill="#E8F4F8"/>
+          <text x="480" y="187" text-anchor="middle" font-size="12" fill="#4A90A4" font-weight="600">左侧结肠 · RAS/BRAF野生型 · 新辅助化疗进行中</text>
+        </svg>
+      </div>
+
+      <div class="highlight-box hl-green">
+        <span class="hl-icon">🟢</span>
+        <strong>有利因素：</strong>
+        左侧结肠（乙状结肠）预后优于右侧；中分化恶性程度适中；RAS/BRAF全野生型 → 抗EGFR靶向治疗高度敏感；在湘雅医院就诊，诊治水平有保障；新辅助化疗为手术创造更好的条件。
+      </div>
+
+      <div class="highlight-box hl-orange">
+        <span class="hl-icon">🟡</span>
+        <strong>当前不确定性：</strong>
+        腹部可疑肿块性质未明（无穿刺，无PET-CT）→ 分期暂不确定；TP53突变提示需更密切监测；合并糖尿病+高血压增加围治疗期管理复杂度。
+      </div>
+
+      <div class="highlight-box hl-blue">
+        <span class="hl-icon">💡</span>
+        <strong>为什么术前化疗？</strong>
+        新辅助化疗（术前化疗）的目的：①缩小原发肿瘤，提高手术R0切除率；
+        ②消灭潜在的微转移灶；③评估肿瘤对化疗药物的敏感性，为术后治疗提供依据。
+        即使腹部肿块最终证实为转移，化疗也是在为后续治疗铺路。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 二、化疗期间警示信号 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-red">🚨</div>
+      <div class="section-title">化疗期间必须警惕的信号</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:17px; color:var(--text-secondary); margin-bottom:18px;">
+        化疗期间免疫功能受抑制，以下信号按<strong>紧急程度分级</strong>，出现任何一项不可拖延：
+      </p>
+
+      <table class="risk-table">
+        <tr>
+          <td colspan="3" style="font-size:18px; font-weight:700; color:var(--danger-dark); padding:8px 16px;">
+            🔴 一级警示 —— 立即急诊（粒细胞缺乏伴发热/严重过敏/急腹症）
+          </td>
+        </tr>
+        <tr class="risk-row-red">
+          <td>🤒</td>
+          <td>发热性中性粒细胞减少</td>
+          <td>化疗后体温 &gt;38.3℃（单次）或持续&gt;38℃超过1小时。这是化疗最危险的并发症之一，可迅速进展为脓毒症休克。<strong>不要自行吃退烧药掩盖症状</strong>，立即急诊查血常规。</td>
+        </tr>
+        <tr class="risk-row-red">
+          <td>😤</td>
+          <td>急性过敏/输液反应</td>
+          <td>输注中或输注后突发呼吸困难、喉头水肿、全身皮疹、血压骤降。如发生在医院外，立即拨打120。</td>
+        </tr>
+        <tr class="risk-row-red">
+          <td>😣</td>
+          <td>急腹症征象</td>
+          <td>突发剧烈腹痛、腹部板状僵硬、停止排气排便。需排除肠梗阻、肠穿孔（肿瘤相关或化疗相关）。</td>
+        </tr>
+
+        <tr>
+          <td colspan="3" style="font-size:18px; font-weight:700; color:#E8960C; padding:12px 16px 8px;">
+            🟠 二级警示 —— 24小时内联系主治医生
+          </td>
+        </tr>
+        <tr class="risk-row-orange">
+          <td>🩸</td>
+          <td>出血倾向</td>
+          <td>牙龈持续出血、皮肤大面积瘀斑、黑便、鼻衄不止。提示血小板显著下降（化疗后骨髓抑制），如血小板 <20×10⁹/L 需紧急输注。</td>
+        </tr>
+        <tr class="risk-row-orange">
+          <td>💧</td>
+          <td>严重腹泻/黏膜炎</td>
+          <td>每日水样便 &gt;6次，或口腔溃烂无法进食进水。可快速导致脱水、电解质紊乱。需静脉补液。</td>
+        </tr>
+        <tr class="risk-row-orange">
+          <td>🤮</td>
+          <td>不可控呕吐</td>
+          <td>止吐药无效、完全无法进食进水超过24小时 → 需静脉营养支持。</td>
+        </tr>
+
+        <tr>
+          <td colspan="3" style="font-size:18px; font-weight:700; color:#B7950B; padding:12px 16px 8px;">
+            🟡 三级警示 —— 下次化疗前告知医生
+          </td>
+        </tr>
+        <tr class="risk-row-yellow">
+          <td>🤚</td>
+          <td>手足麻木/疼痛</td>
+          <td>手指脚趾刺痛、麻木、冷敏感（> 奥沙利铂特征性神经毒性，呈剂量累积性，不可逆）。每次化疗前必须报告程度变化，如影响精细动作（扣扣子、拿筷子）需考虑减量。</td>
+        </tr>
+        <tr class="risk-row-yellow">
+          <td>😴</td>
+          <td>进行性乏力</td>
+          <td>日常活动明显受限，伴头晕、活动后气促 → 需查血红蛋白排除化疗相关性贫血。</td>
+        </tr>
+        <tr class="risk-row-yellow">
+          <td>🦷</td>
+          <td>口腔黏膜炎</td>
+          <td>口腔疼痛、溃疡、吞咽困难 → 影响进食和营养摄入，需对症处理和营养支持。</td>
+        </tr>
+      </table>
+
+      <div class="highlight-box hl-red" style="margin-top:12px;">
+        <span class="hl-icon">📞</span>
+        <strong>每个化疗周期出院时，务必确认：</strong>主管医生/科室的24小时联系电话。化疗后第7-10天是骨髓抑制的最低点（白细胞和血小板最低），是感染和出血最高发的时间窗口。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 三、基因检测 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-green">🧬</div>
+      <div class="section-title">基因检测结果 · 精准治疗依据</div>
+    </div>
+
+    <div class="card">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+        <div class="gene-card gene-good">
+          <div class="gene-icon">✅</div>
+          <div class="gene-name">KRAS / NRAS</div>
+          <div class="gene-result">野生型（无突变）</div>
+          <div class="gene-msg">EGFR信号通路正常 → 抗EGFR单抗（西妥昔单抗/帕尼单抗）治疗敏感</div>
+        </div>
+        <div class="gene-card gene-good">
+          <div class="gene-icon">✅</div>
+          <div class="gene-name">BRAF V600E</div>
+          <div class="gene-result">野生型（无突变）</div>
+          <div class="gene-msg">预后相对较好，对EGFR抑制剂无原发耐药机制</div>
+        </div>
+        <div class="gene-card gene-info">
+          <div class="gene-icon">ℹ️</div>
+          <div class="gene-name">MSI / MMR 状态</div>
+          <div class="gene-result">MSS（微卫星稳定）</div>
+          <div class="gene-msg">错配修复功能正常 → 免疫检查点抑制剂单用获益有限</div>
+        </div>
+        <div class="gene-card gene-warn">
+          <div class="gene-icon">⚠️</div>
+          <div class="gene-name">TP53</div>
+          <div class="gene-result">存在突变</div>
+          <div class="gene-msg">抑癌基因失活 → 可能提示侵袭性更高，需密切随访</div>
+        </div>
+      </div>
+
+      <div class="highlight-box hl-blue" style="margin-top:16px;">
+        <span class="hl-icon">🧬</span>
+        <strong>其他阴性结果：</strong>HER2无扩增 · NTRK无融合 · PIK3CA无突变 · MET无扩增 · ALK/ROS1/RET无融合 · APC突变阳性（与诊断一致）。
+      </div>
+
+      <div class="highlight-box hl-green">
+        <span class="hl-icon">🎯</span>
+        <strong>精准治疗结论：</strong>RAS/BRAF全野生型+左侧结肠 → <strong>西妥昔单抗+FOLFIRI/FOLFOX</strong>为一线标准方案。
+        临床研究（CRYSTAL、FIRE-3、TAILOR）证实该组合在RAS野生型左侧mCRC中 ORR 60-70%、中位OS超过30个月。
+        此方案既可用于<strong>新辅助治疗</strong>（术前缩瘤），也可用于术后辅助或晚期一线。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 四、当前治疗路径 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-purple">💊</div>
+      <div class="section-title">治疗路径与化疗管理</div>
+    </div>
+
+    <div class="card">
+      <!-- 治疗路径时间线 -->
+      <h3 style="font-size:19px; margin-bottom:16px; color:var(--text);">🗓️ 全程治疗路线图</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">已完成</div>
+          <div class="tl-text">🧬 <strong>肠镜活检 + 病理确诊</strong> — 乙状结肠中分化腺癌 · NGS+IHC基因检测完成</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">进行中</div>
+          <div class="tl-text">💉 <strong>新辅助化疗</strong> — 按周期进行，每周期前后血常规+肝肾功能+肿瘤标志物监测</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--accent-warm); box-shadow:0 0 0 3px var(--accent-warm);"></div>
+          <div class="tl-date">化疗结束后 · 关键节点</div>
+          <div class="tl-text">🖥️ <strong>增强CT全面评估</strong> — 评估原发灶缩小程度 + 腹部肿块变化 + 有无新发病灶 → 决定手术时机和方案</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--purple); box-shadow:0 0 0 3px var(--purple);"></div>
+          <div class="tl-date">CT评估后</div>
+          <div class="tl-text">🔪 <strong>根治性手术</strong> — 肿瘤切除 + 淋巴结清扫 + <strong style="color:#E8960C;">腹部肿块一并切除送病理</strong>（术中冰冻+术后石蜡）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--success); box-shadow:0 0 0 3px var(--success);"></div>
+          <div class="tl-date">术后</div>
+          <div class="tl-text">📋 <strong>根据病理结果制定后续方案</strong> — 如肿块为转移 → IV期治疗策略；如非转移 → 辅助化疗巩固</div>
+        </div>
+      </div>
+
+      <!-- 化疗周期示意图 -->
+      <h3 style="font-size:19px; margin:24px 0 14px; color:var(--text);">🔄 化疗周期管理</h3>
+      <div class="chemo-cycle">
+        <div class="cycle-card current">
+          <div class="cc-num">C1</div>
+          <div class="cc-label">第1周期<br>进行中</div>
+        </div>
+        <div class="cycle-card">
+          <div class="cc-num">C2</div>
+          <div class="cc-label">第2周期</div>
+        </div>
+        <div class="cycle-card">
+          <div class="cc-num">C3</div>
+          <div class="cc-label">第3周期</div>
+        </div>
+        <div class="cycle-card">
+          <div class="cc-num">...</div>
+          <div class="cc-label">后续周期</div>
+        </div>
+        <div class="cycle-card milestone">
+          <div class="cc-num">CT</div>
+          <div class="cc-label">增强CT<br>疗效评估</div>
+        </div>
+      </div>
+      <p style="font-size:15px; color:var(--text-light); margin-top:10px; text-align:center;">
+        💡 每个化疗周期前需复查血常规、肝肾功能、CEA+CA19-9。白细胞/中性粒细胞不达标时可能需要延期或调整剂量。
+      </p>
+
+      <!-- 化疗不良反应管理 -->
+      <div class="warning-card">
+        <h3>⚠️ 化疗常见不良反应及应对</h3>
+        <p>
+          <strong>1. 骨髓抑制（最重要！）：</strong>化疗后7-14天为白细胞和血小板最低点。在此期间避免去人群密集场所，戴口罩，如发热立即就医。遵医嘱使用升白针（G-CSF）预防。<br><br>
+          <strong>2. 恶心呕吐：</strong>化疗前使用三联止吐方案（NK-1受体拮抗剂+5-HT3拮抗剂+地塞米松），居家备昂丹司琼口腔崩解片应急。少量多餐，避免油腻和强烈气味。<br><br>
+          <strong>3. 奥沙利铂神经毒性（如方案含奥沙利铂）：</strong>①急性神经毒性：遇冷诱发喉痉挛/手脚痉挛 → 化疗后3-5天内避免接触冷空气、冷饮、冷水洗手。戴手套从冰箱取物。②慢性累积性神经毒性：手指脚趾持续麻木 → 每次就诊评估等级，G2以上需考虑减量。<br><br>
+          <strong>4. 腹泻：</strong>伊立替康相关腹泻可为迟发性（用药24小时后），备洛哌丁胺（易蒙停），遵医嘱方案服用。如每日≥6次水样便或伴血便，立即就医。<br><br>
+          <strong>5. 口腔黏膜炎：</strong>化疗后5-10天高发。用软毛牙刷+生理盐水或小苏打水漱口，避免含酒精漱口水。出现溃疡可用康复新液含漱。<br><br>
+          <strong>6. 肝功能损伤：</strong>每周期前必查ALT/AST/胆红素。化疗药物（尤其是伊立替康）可致肝功能异常，需按医嘱调整剂量。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 五、重点医疗风险（化疗期特有问题） ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-red">⚠️</div>
+      <div class="section-title">务必警惕 · 化疗期重点医疗风险</div>
+    </div>
+
+    <!-- 风险1：粒缺伴发热 -->
+    <div class="danger-zone dz-red">
+      <div class="dz-header">🔴 风险一：发热性中性粒细胞减少症（FN）—— 化疗头号杀手</div>
+      <div class="dz-body">
+        <div class="dz-item">
+          <div class="dz-num">1</div>
+          <div class="dz-text"><strong>为什么危险？</strong>化疗后骨髓抑制期（通常第7-14天），中性粒细胞降至最低。一旦发生感染，缺乏中性粒细胞的免疫防线，可在数小时内从发热进展为脓毒症休克、多器官衰竭。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">2</div>
+          <div class="dz-text"><strong>识别标准：</strong>①单次口腔温度≥38.3℃ 或 ②持续≥38.0℃超过1小时 且 ③中性粒细胞计数 <0.5×10⁹/L（或预计将降至该水平）。<strong>不需要三条全部满足才行动</strong>——发热本身就是警报。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">3</div>
+          <div class="dz-text"><strong>行动：</strong>立即到最近医院的急诊科，告知医生"正在化疗、有发热"，医生会立即查血常规+血培养+启动广谱抗生素（1小时内）。<strong style="color:#C0392B;">绝对禁止：</strong>自行服用退烧药后在家观察——退烧药掩盖体温，感染仍在进展。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 风险2：肿瘤并发症 -->
+    <div class="danger-zone dz-orange">
+      <div class="dz-header">🟠 风险二：肿瘤相关急症</div>
+      <div class="dz-body">
+        <div class="dz-item">
+          <div class="dz-num">1</div>
+          <div class="dz-text"><strong>肠梗阻：</strong>乙状结肠肿瘤可导致管腔狭窄。如出现腹胀加重、停止排气排便超过24小时、阵发性绞痛、恶心呕吐——需急诊排除肠梗阻。化疗期间肿瘤水肿也可能加重狭窄。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">2</div>
+          <div class="dz-text"><strong>肿瘤出血：</strong>表现为便血增多或新发黑便。如出现头晕、心慌、面色苍白等贫血症状，需急诊查血常规并评估是否需要输血支持。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">3</div>
+          <div class="dz-text"><strong>腹部肿块变化：</strong>注意观察腹部肿块的大小、硬度、有无疼痛。如肿块短时间内明显增大、出现剧烈疼痛，及时告知医生——可能需要提前影像评估。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 风险3：基础病+化疗 -->
+    <div class="danger-zone dz-yellow">
+      <div class="dz-header">🟡 风险三：基础病与化疗的叠加效应</div>
+      <div class="dz-body">
+        <div class="dz-item">
+          <div class="dz-num">1</div>
+          <div class="dz-text"><strong>血糖波动：</strong>化疗中使用的糖皮质激素（地塞米松）可显著升高血糖。化疗期间需<strong>增加血糖监测频率</strong>（每日至少4次：空腹+三餐后2h），血糖异常升高时需内分泌科会诊调整降糖方案。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">2</div>
+          <div class="dz-text"><strong>心血管事件：</strong>高血压2级（极高危）+ 化疗（某些药物有心脏毒性）+ 糖尿病 = 心血管事件高风险。每周期化疗前需监测血压+心电图。如出现胸痛、心悸、呼吸困难，需急诊排除心肌缺血或心衰。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">3</div>
+          <div class="dz-text"><strong>感染风险加倍：</strong>糖尿病本身损害免疫功能，加上化疗后骨髓抑制期，感染风险叠加。粒细胞缺乏期特别要注意：足部皮肤完好（糖尿病人足部感觉减退，小伤口可迅速恶化）、避免导尿等侵入性操作。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 风险4：分期不确定性 -->
+    <div class="danger-zone dz-blue">
+      <div class="dz-header">🔵 风险四：分期不确定 → 治疗策略可能需调整</div>
+      <div class="dz-body">
+        <div class="dz-item">
+          <div class="dz-num">1</div>
+          <div class="dz-text"><strong>当前困境：</strong>腹部可疑肿块未经病理确认 → 无法确定是局限性（I-III期）还是转移性（IV期）。未行PET-CT（因化疗已开始）→ 不能完全排除其他隐匿转移灶。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">2</div>
+          <div class="dz-text"><strong>为什么当前的策略是合理的：</strong>即使肿块是转移，新辅助化疗也能同时作用于原发灶和潜在转移灶。CT评估后 + 手术病理 = 最终分期 <strong>→</strong> 术后方案将基于"金标准"病理结果制定，比单纯依赖影像学更可靠。</div>
+        </div>
+        <div class="dz-item">
+          <div class="dz-num">3</div>
+          <div class="dz-text"><strong>需要心理准备：</strong>如果手术病理证实为IV期，治疗目标从"根治"转变为"长期控制"。但IV期结直肠癌的治疗手段近年来极大丰富——抗EGFR靶向+化疗+局部治疗（手术/消融）可使部分寡转移患者实现长期生存甚至NED（无疾病证据）。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 六、化疗期日常管理 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-green">🥗</div>
+      <div class="section-title">化疗期间的自我管理</div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:19px; margin-bottom:14px; color:var(--text);">🍽️ 化疗期营养支持</h3>
+      <p style="font-size:15px; color:var(--text-secondary); margin-bottom:14px;">
+        化疗期间营养目标：维持体重、补充蛋白质对抗消耗、避免粒细胞缺乏期的食源性感染。
+      </p>
+      <div class="grid-2">
+        <div class="grid-item do">
+          <div class="g-icon">✅</div>
+          <div class="g-label">推荐摄入</div>
+          <div class="g-text" style="text-align:left; padding-left:8px;">
+            • 优质蛋白每日1.2-1.5g/kg（鱼肉/鸡胸/蛋/豆腐）<br>
+            • 充分烹饪的蔬菜（南瓜、胡萝卜、西兰花）<br>
+            • 全谷物主食（小米、燕麦）— 控血糖<br>
+            • 清淡烹饪：蒸、煮、炖、烩<br>
+            • 少食多餐，5-6餐/日
+          </div>
+        </div>
+        <div class="grid-item avoid">
+          <div class="g-icon">❌</div>
+          <div class="g-label">严格避免</div>
+          <div class="g-text" style="text-align:left; padding-left:8px;">
+            • <strong>生食/半生食</strong>（刺身、溏心蛋、未全熟肉类）— 粒缺期可致命<br>
+            • <strong>西柚/葡萄柚及果汁</strong>— CYP3A4抑制剂，干扰多种化疗药代谢<br>
+            • 辛辣刺激、过烫食物（加重口腔黏膜炎）<br>
+            • 加工肉制品（WHO 1类致癌物）<br>
+            • 高糖食物（化疗激素+糖尿病=血糖失控）
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:19px; margin:24px 0 14px; color:var(--text);">🚶 化疗期活动与防护</h3>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px; background:var(--success-light); border-radius:12px; padding:16px; text-align:center;">
+          <div style="font-size:32px;">🚶‍♀️</div>
+          <strong style="font-size:17px;">化疗间歇期</strong><br>
+          <span style="font-size:15px; color:var(--text-secondary);">适度散步15-30分钟<br>量力而行，不过度疲劳<br>白细胞正常时可行</span>
+        </div>
+        <div style="flex:1; min-width:180px; background:var(--danger-light); border-radius:12px; padding:16px; text-align:center;">
+          <div style="font-size:32px;">😷</div>
+          <strong style="font-size:17px;">骨髓抑制期</strong><br>
+          <span style="font-size:15px; color:var(--text-secondary);">居家休息，减少外出<br>不乘坐公共交通<br>不去商场、餐厅等密集场所</span>
+        </div>
+        <div style="flex:1; min-width:180px; background:var(--primary-light); border-radius:12px; padding:16px; text-align:center;">
+          <div style="font-size:32px;">🧤</div>
+          <strong style="font-size:17px;">日常防护</strong><br>
+          <span style="font-size:15px; color:var(--text-secondary);">勤洗手+戴口罩<br>如方案含奥沙利铂<br>避免接触冷物/冷饮</span>
+        </div>
+      </div>
+
+      <h3 style="font-size:19px; margin:24px 0 14px; color:var(--text);">💓 基础病同步管理</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        <div class="highlight-box hl-orange" style="margin:0;">
+          <span class="hl-icon">🩸</span>
+          <strong>糖尿病</strong><br>
+          • 化疗期间每日4次血糖：空腹+三餐后2h<br>
+          • 目标：空腹4.4-7.0，餐后 <10.0<br>
+          • 使用地塞米松时血糖会升高，属正常<br>
+          • 不可擅自停降糖药<br>
+          • HbA1c 每3个月复查
+        </div>
+        <div class="highlight-box hl-red" style="margin:0;">
+          <span class="hl-icon">💗</span>
+          <strong>高血压</strong><br>
+          • 每日早晚测血压并记录<br>
+          • 目标：<140/90 mmHg<br>
+          • 化疗期间血压易波动，监测更频繁<br>
+          • 持续 >160/100 → 联系医生调药<br>
+          • 限盐 <5g/日
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 七、评估与随访计划 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-red">📋</div>
+      <div class="section-title">评估与随访计划</div>
+    </div>
+
+    <div class="card">
+      <ul class="step-list">
+        <li class="step-item">
+          <div class="step-num" style="background:#E07B6C;">1</div>
+          <div class="step-content">
+            <strong>每个化疗周期前</strong><br>
+            <span style="color:var(--text-secondary);">
+            血常规+中性粒细胞计数 · 肝肾功能（ALT/AST/胆红素/肌酐）· 尿常规 · 心电图<br>
+            <strong>CEA+CA19-9</strong>肿瘤标志物（观察动态趋势，评估化疗敏感性）<br>
+            → 任何指标异常可能导致化疗延期或剂量调整
+            </span>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num" style="background:#F5A623;">2</div>
+          <div class="step-content">
+            <strong>化疗疗程结束后 · 2-4周内</strong><br>
+            <span style="color:var(--text-secondary);">
+            <strong>增强CT（胸+腹+盆腔）— 这是决定后续方案的关键检查</strong><br>
+            评估：①原发灶缩小程度（RECIST标准评估疗效）②腹部肿块变化 ③有无新发病灶
+            </span>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num" style="background:#9B59B6;">3</div>
+          <div class="step-content">
+            <strong>CT评估后 · 多学科会诊（MDT）</strong><br>
+            <span style="color:var(--text-secondary);">
+            胃肠外科 + 肿瘤内科 + 影像科 + 病理科共同讨论：<br>
+            → 是否适合手术？手术时机？手术范围？（含腹部肿块一并切除计划）
+            </span>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num" style="background:#6BAF7B;">4</div>
+          <div class="step-content">
+            <strong>手术后 · 根据病理金标准</strong><br>
+            <span style="color:var(--text-secondary);">
+            完整病理报告（ypTNM分期+腹部肿块病理）→ 最终分期确定 → 制定术后辅助治疗或晚期维持治疗方案<br>
+            重要的基因检测结果（RAS/BRAF/MSI）已具备，术后无需重复检测。
+            </span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="highlight-box hl-purple" style="margin-top:16px;">
+        <span class="hl-icon">📝</span>
+        <strong>建议准备"化疗日记"：</strong>记录每个周期的日期、用药方案、不良反应（时间+症状+严重程度+处理方式）、血常规最低值、CEA趋势、体重变化。这本日记是医生调整后续方案的最重要参考。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 八、心态建设 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-orange">❤️</div>
+      <div class="section-title">康复寄语</div>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:12px;">🌈</div>
+      <p style="font-size:18px; line-height:2.2; color:var(--text-secondary);">
+        <strong style="color:var(--primary); font-size:20px;">您当前治疗路径的逻辑是清晰的：</strong><br>
+        新辅助化疗 → CT评估 → 手术切除（含肿块病理） → 最终分期 → 精准方案。<br><br>
+        虽然腹部肿块带来了不确定性，<br>
+        但当前的化疗策略"以退为进"——即便它最终被证实是转移，<br>
+        化疗也在同步控制，而不是白白等待。<br><br>
+        <strong style="color:var(--success);">您拥有：</strong><br>
+        顶级的治疗中心 · RAS/BRAF野生型的精准靶点 · <br>
+        指南推荐的明确治疗路径 · 家人和医生的双重支持。<br><br>
+        请记住三个"不要"：<br>
+        <strong style="color:var(--danger);">不要因为感觉还好就跳过复查 · </strong>
+        <strong style="color:var(--danger);">不要自行调整任何药物 · </strong>
+        <strong style="color:var(--danger);">不要出现警示信号后"再等等看"</strong><br><br>
+        这条路，每一步都有医生陪您走 💪
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <h2>📞 重要联系信息</h2>
+    <div class="contact-row">
+      <div class="contact-item">
+        <strong>主治医院</strong>
+        中南大学湘雅医院
+      </div>
+      <div class="contact-item">
+        <strong>紧急情况</strong>
+        拨打 120
+      </div>
+      <div class="contact-item">
+        <strong>湘雅转接</strong>
+        肿瘤内科 / 胃肠外科
+      </div>
+    </div>
+    <div class="bless">🌻 祝您治疗顺利 🌻</div>
+  </div>
+
+  <div style="text-align:center; margin-top:24px; font-size:14px; color:var(--text-light);">
+    编制日期：2026年6月25日 · 基于NCCN/CSCO结直肠癌诊疗指南 · 新辅助化疗期适用 · 具体诊疗请遵医嘱
+  </div>
+
+</div>
+</body>
+</html>

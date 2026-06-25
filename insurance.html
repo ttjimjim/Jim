@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杨华 · 商业保险使用指南</title>
+<style>
+  :root {
+    --bg: #FFFBF5;
+    --card-bg: #FFFFFF;
+    --blue: #4A90A4;
+    --blue-light: #E8F4F8;
+    --orange: #F5A623;
+    --orange-light: #FFF8F0;
+    --orange-dark: #E8960C;
+    --green: #6BAF7B;
+    --green-light: #EDF7EF;
+    --red: #E07B6C;
+    --red-light: #FDF0EE;
+    --purple: #9B59B6;
+    --purple-light: #F5EEFA;
+    --text: #2C3E50;
+    --text-secondary: #5A6C7D;
+    --text-light: #8899AA;
+    --border: #E8ECF0;
+    --radius: 16px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width:720px; margin:0 auto; padding:32px 24px 48px; }
+
+  .header {
+    background: linear-gradient(135deg, #3D7A8E 0%, #4A90A4 40%, #5BA4BD 100%);
+    border-radius: var(--radius);
+    padding: 40px 32px 36px;
+    color: #FFF;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before { content:''; position:absolute; top:-60px; right:-40px; width:160px; height:160px; background:rgba(255,255,255,0.08); border-radius:50%; }
+  .header::after { content:''; position:absolute; bottom:-30px; left:-30px; width:100px; height:100px; background:rgba(255,255,255,0.06); border-radius:50%; }
+  .header h1 { font-size:28px; font-weight:700; letter-spacing:2px; margin-bottom:12px; position:relative; z-index:1; }
+  .header .subtitle { font-size:18px; opacity:0.9; font-weight:400; position:relative; z-index:1; }
+  .header .decor { margin-top:20px; font-size:48px; position:relative; z-index:1; }
+
+  .section { margin-top:28px; }
+  .section-header { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  .section-icon {
+    width:44px; height:44px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; flex-shrink:0;
+  }
+  .section-title { font-size:24px; font-weight:700; color:var(--text); }
+  .icon-blue { background:var(--blue-light); }
+  .icon-green { background:var(--green-light); }
+  .icon-red { background:var(--red-light); }
+  .icon-orange { background:var(--orange-light); }
+  .icon-purple { background:var(--purple-light); }
+
+  .card { background:var(--card-bg); border-radius:var(--radius); padding:24px 24px 28px; box-shadow:var(--shadow); }
+  .card + .card { margin-top:16px; }
+
+  .highlight-box {
+    border-radius:12px; padding:18px 22px; margin:16px 0;
+    font-size:17px; line-height:1.75;
+  }
+  .hl-icon { font-size:22px; margin-right:8px; }
+  .hl-green { background:var(--green-light); border-left:4px solid var(--green); }
+  .hl-blue { background:var(--blue-light); border-left:4px solid var(--blue); }
+  .hl-orange { background:var(--orange-light); border-left:4px solid var(--orange); }
+  .hl-red { background:var(--red-light); border-left:4px solid var(--red); }
+  .hl-purple { background:var(--purple-light); border-left:4px solid var(--purple); }
+
+  /* Policy comparison table */
+  .compare-table {
+    width:100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+  .compare-table th {
+    font-size: 15px;
+    color: var(--text-light);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .compare-table td {
+    padding: 14px 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    vertical-align: top;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+  }
+  .compare-table td:first-child { border-radius:10px 0 0 10px; font-weight:700; font-size:17px; width:24%; }
+  .compare-table td:nth-child(2) {
+    border-left:4px solid var(--blue);
+  }
+  .compare-table td:nth-child(3) {
+    border-left:4px solid var(--orange);
+  }
+  .compare-table td:last-child { border-radius:0 10px 10px 0; }
+
+  /* Policy card */
+  .policy-card {
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .policy-card h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .policy-card .policy-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .policy-card .policy-num { font-size: 14px; color: var(--text-light); margin-bottom: 12px; }
+  .pc-main {
+    background: linear-gradient(135deg, #E8F4F8, #F0F8FA);
+    border: 2px solid #4A90A4;
+  }
+  .pc-main h3 { color: #3D7A8E; }
+  .pc-main .policy-tag { background: #4A90A4; color: #FFF; }
+  .pc-addon {
+    background: linear-gradient(135deg, #FFF8F0, #FFF3E0);
+    border: 2px solid #F5A623;
+  }
+  .pc-addon h3 { color: #E8960C; }
+  .pc-addon .policy-tag { background: #F5A623; color: #FFF; }
+
+  .coverage-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .coverage-item {
+    font-size: 15px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ci-yes { background: var(--green-light); color: #4A8A5A; }
+  .ci-no { background: #F5F5F5; color: #BBB; }
+  .ci-partial { background: var(--orange-light); color: #B8750A; }
+
+  /* Route card */
+  .route-card {
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 16px;
+  }
+  .route-card .route-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .route-card .route-title { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .route-card .route-steps { list-style: none; padding: 0; }
+  .route-card .route-steps li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #E0E0E0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .route-card .route-steps li:last-child { border-bottom: none; }
+  .route-card .route-steps .step-tag {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+    margin-top: 1px;
+  }
+  .route-a { background:#FFF5F0; border:2px solid #FFD4C4; }
+  .route-a .route-badge { background:#FDF0EE; color:#E07B6C; }
+  .route-a .route-title { color:#E07B6C; }
+  .route-a .step-tag { background:#E07B6C; }
+  .route-b { background:#EDF7EF; border:2px solid #C5E6D0; }
+  .route-b .route-badge { background:#E8F5EB; color:#6BAF7B; }
+  .route-b .route-title { color:#6BAF7B; }
+  .route-b .step-tag { background:#6BAF7B; }
+
+  /* Scenario cards */
+  .scenario-card {
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .scenario-card h4 { font-size: 19px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .scenario-card p { font-size: 16px; line-height: 1.7; color: var(--text-secondary); }
+
+  .key-num {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 2px 10px;
+    border-radius: 6px;
+  }
+
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .chk { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+  .danger-card {
+    background: linear-gradient(135deg, #FFF5F5, #FFF0F0);
+    border: 2px solid #F5C6CB;
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-top: 16px;
+  }
+  .danger-card h3 { color: var(--red); font-size: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .danger-card p { font-size: 17px; line-height: 1.75; }
+
+  .flow-step {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .flow-step > div {
+    flex: 1;
+    min-width: 160px;
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: center;
+    position: relative;
+  }
+  .flow-label { font-size: 14px; color: #FFF; font-weight: 700; margin-bottom: 6px; border-radius: 6px; padding: 2px 8px; display: inline-block; }
+  .flow-text { font-size: 15px; line-height: 1.6; }
+
+  .footer {
+    margin-top:36px;
+    background: linear-gradient(135deg, #3D7A8E 0%, #4A90A4 100%);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    color:#FFF;
+    text-align:center;
+  }
+  .footer h2 { font-size:22px; font-weight:600; margin-bottom:16px; letter-spacing:1px; }
+  .footer .contact-row { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .footer .contact-item {
+    background:rgba(255,255,255,0.15); border-radius:10px; padding:12px 20px; font-size:16px;
+  }
+  .footer .contact-item strong { display:block; font-size:13px; opacity:0.8; margin-bottom:2px; }
+
+  @media (max-width: 480px) {
+    .page { padding:20px 14px 36px; }
+    .header { padding:30px 20px 28px; }
+    .header h1 { font-size:24px; }
+    .coverage-list { grid-template-columns: 1fr; }
+    .compare-table td { font-size:14px; padding:12px 10px; }
+  }
+  @media print {
+    body { background:#FFF; }
+    .page { max-width:100%; padding:20px; }
+    .card, .policy-card, .route-card { box-shadow:none; }
+    .header, .footer { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="decor">🛡️</div>
+    <h1>商业保险使用指南</h1>
+    <div class="subtitle">两份保单协同使用 · 治疗期间操作手册</div>
+  </div>
+
+  <!-- ===== 一、两张保单速览 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-blue">📄</div>
+      <div class="section-title">您的两张保单</div>
+    </div>
+
+    <div class="card">
+      <!-- 主险 -->
+      <div class="policy-card pc-main">
+        <span class="policy-tag">主险 · 第一份</span>
+        <h3>🏥 安享百万医疗保险（费率可调）</h3>
+        <div class="policy-num">保单号：21001213428520 · 2021年投保 · 缴费646元/年</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+          <span style="background:#4A90A4;color:#FFF;padding:4px 12px;border-radius:20px;font-size:15px;font-weight:600;">基本保额 100万</span>
+          <span style="background:#E8F4F8;color:#3D7A8E;padding:4px 12px;border-radius:20px;font-size:15px;">住院津贴 1,000元/日</span>
+          <span style="background:#E8F4F8;color:#3D7A8E;padding:4px 12px;border-radius:20px;font-size:15px;">保证续保15年</span>
+          <span style="background:#E8F4F8;color:#3D7A8E;padding:4px 12px;border-radius:20px;font-size:15px;">保至 2036.02.08</span>
+        </div>
+      </div>
+
+      <!-- 附加险 -->
+      <div class="policy-card pc-addon">
+        <span class="policy-tag">附加特药险 · 第二份</span>
+        <h3>💊 太保特药保2.0医疗保险</h3>
+        <div class="policy-num">保单号：210062627301381 · 2026年投保 · 缴费108元/一次性</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+          <span style="background:#F5A623;color:#FFF;padding:4px 12px;border-radius:20px;font-size:15px;font-weight:600;">特药保额 300万</span>
+          <span style="background:#FFF3E0;color:#B8750A;padding:4px 12px;border-radius:20px;font-size:15px;">60种特药清单</span>
+          <span style="background:#FDF0EE;color:#C0392B;padding:4px 12px;border-radius:20px;font-size:15px;">❌不含基因检测报销</span>
+          <span style="background:#FFF3E0;color:#B8750A;padding:4px 12px;border-radius:20px;font-size:15px;">保至 2027.02.08</span>
+        </div>
+      </div>
+
+      <div class="highlight-box hl-blue">
+        <span class="hl-icon">💡</span>
+        <strong>两张保单的关系：</strong>主险（安享百万）覆盖<strong>住院医疗、手术、化疗</strong>等治疗费用；附加特药险专门覆盖<strong>清单内的口服靶向药</strong>费用。两者互补，不存在冲突，可以分别申请理赔。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 二、两张保单保障对比 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-green">🔍</div>
+      <div class="section-title">各保什么？一张表看清楚</div>
+    </div>
+
+    <div class="card">
+      <table class="compare-table">
+        <tr>
+          <th></th>
+          <th style="color:#3D7A8E;font-weight:700;">🟦 安享百万（主险）</th>
+          <th style="color:#E8960C;font-weight:700;">🟧 特药保2.0（附加）</th>
+        </tr>
+        <tr>
+          <td>年度保额</td>
+          <td>100万（未理赔逐年+20万，最高300万）</td>
+          <td>300万（仅用于特药费用）</td>
+        </tr>
+        <tr>
+          <td>住院医疗费</td>
+          <td>✅ <strong>全额覆盖</strong>（床位、手术、药品、检查等）</td>
+          <td>❌ 不保住院费用</td>
+        </tr>
+        <tr>
+          <td>化疗/放疗（住院输注）</td>
+          <td>✅ <strong>全额覆盖</strong>（住院或日间病房）</td>
+          <td>❌ 不保</td>
+        </tr>
+        <tr>
+          <td>特殊门诊（化疗/放疗门诊）</td>
+          <td>✅ 覆盖</td>
+          <td>❌ 不保</td>
+        </tr>
+        <tr>
+          <td>手术费用</td>
+          <td>✅ 覆盖</td>
+          <td>❌ 不保</td>
+        </tr>
+        <tr>
+          <td>门诊手术</td>
+          <td>✅ 覆盖</td>
+          <td>❌ 不保</td>
+        </tr>
+        <tr>
+          <td>住院前后门急诊</td>
+          <td>✅ 覆盖（前后各30天）</td>
+          <td>❌ 不保</td>
+        </tr>
+        <tr>
+          <td>口服靶向药（清单内）</td>
+          <td>✅ 可能覆盖（恶性肿瘤特定药械费用）</td>
+          <td>✅ <strong>专项覆盖</strong>（60种特药+DTP直付）</td>
+        </tr>
+        <tr style="background:#FFF8F0;">
+          <td>⚠️ 基因检测</td>
+          <td colspan="2" style="font-size:15px;color:#C0392B;line-height:1.7;">
+            <strong>重要纠正：</strong>两份保单均<strong>不包含</strong>「基因检测费用报销」。<br>
+            安享百万含<strong>「恶性肿瘤靶向药物基因检测」增值服务</strong>（1次/年），由<strong>太保安联</strong>提供，<br>
+            需<strong>提前致电95500转5预约</strong>，由保险公司安排指定机构检测，<strong>不是先自费再报销</strong>。<br>
+            ❌ <strong>患者已自费做的基因检测，无法追回，也不在保险报销范围内。</strong>
+          </td>
+        </tr>
+        <tr>
+          <td>质子重离子</td>
+          <td>✅ 覆盖</td>
+          <td>❌ 不保</td>
+        </tr>
+        <tr>
+          <td>住院津贴</td>
+          <td>✅ 1,000元/日</td>
+          <td>❌ 不保</td>
+        </tr>
+        <tr>
+          <td>免赔额</td>
+          <td>约5,000-10,000元（以保单约定为准）</td>
+          <td>无免赔额</td>
+        </tr>
+        <tr>
+          <td>赔付比例</td>
+          <td>医保先报→100% / 医保未报→60%</td>
+          <td>医保先报→100% / 医保未报→60%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== 三、三种治疗场景 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-orange">🎯</div>
+      <div class="section-title">您的治疗阶段 · 分别用哪张保单</div>
+    </div>
+
+    <div class="card">
+      <!-- Scenario 1: 化疗住院 -->
+      <div class="scenario-card" style="background:#E8F4F8; border-left:4px solid #4A90A4;">
+        <h4 style="color:#3D7A8E;">🏥 场景一：化疗输液住院</h4>
+        <p>
+          <strong>发生费用：</strong>住院床位费、护理费、化疗药费（奥沙利铂/伊立替康/氟尿嘧啶等输液药）、检查费、医生费。<br>
+          <strong>用哪张保单：</strong><span class="key-num" style="background:#E8F4F8; color:#3D7A8E;">主险·安享百万</span><br>
+          <strong>报销路径：</strong>出院时医保先结算 → 凭医保结算单+发票 → 向太保提交安享百万理赔 → 补足剩余自付（100%赔付比例）。<br>
+          <strong>特药保不管这个！</strong>
+        </p>
+      </div>
+
+      <!-- Scenario 2: 手术住院 -->
+      <div class="scenario-card" style="background:#E8F4F8; border-left:4px solid #4A90A4;">
+        <h4 style="color:#3D7A8E;">🔪 场景二：根治性手术住院</h4>
+        <p>
+          <strong>发生费用：</strong>手术费、麻醉费、耗材费、术后住院费、术后用药、病理检查费。<br>
+          <strong>用哪张保单：</strong><span class="key-num" style="background:#E8F4F8; color:#3D7A8E;">主险·安享百万</span><br>
+          <strong>报销路径：</strong>同场景一。注意：手术住院可能天数较长，安享百万还有<strong>每日1,000元住院津贴</strong>可同时理赔。<br>
+          <strong>特药保不管手术！</strong>
+        </p>
+      </div>
+
+      <!-- Scenario 3: 口服靶向药 -->
+      <div class="scenario-card" style="background:#FFF3E0; border-left:4px solid #F5A623;">
+        <h4 style="color:#E8960C;">💊 场景三：口服靶向药（呋喹替尼/爱优特）</h4>
+        <p>
+          <strong>发生费用：</strong>在院外DTP药房购买口服靶向药的费用。<br>
+          <strong>用哪张保单：</strong>
+          <span class="key-num" style="background:#FFF8F0; color:#E8960C;">首选：特药保2.0</span>（直付最便捷，300万额度独立）
+          <span class="key-num" style="background:#E8F4F8; color:#3D7A8E; margin-left:8px;">备选：安享百万</span>（恶性肿瘤特定药械费用也可报）<br>
+          <strong>能双重报销吗？</strong>不能重复报同一笔费用。但可以<strong>分单报销</strong>：特药保先报60%/100% → 剩余自付部分再向安享百万申请理赔（如有额度且条款允许）。具体需95500确认。<br>
+          <strong>建议：</strong>优先用特药保2.0走DTP直付（流程成熟），安享百万作为兜底补充。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 四、赔付比例的真相 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-red">💰</div>
+      <div class="section-title">赔付比例 —— 两张保单规则相同</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:17px; color:var(--text-secondary); margin-bottom:16px;">
+        无论主险还是特药险，都遵循同一规则：<strong>医保先报 → 100%补差；医保未报 → 60%赔付</strong>。
+      </p>
+
+      <div class="route-card route-b">
+        <div class="route-badge">🟢 最优方案</div>
+        <div class="route-title">医保先结算 → 商保100%补差</div>
+        <div style="background:#FFF;border-radius:10px;padding:16px;text-align:center;">
+          <span style="font-size:15px;">以化疗住院为例：总费用 15,000元 → 医保报 10,000元 → 自付 5,000元</span><br>
+          <span style="font-size:22px;font-weight:700;color:#6BAF7B;">安享百万 100% 补差 → 赔 5,000元</span><br>
+          <span style="font-size:14px;color:var(--text-light);">（扣除免赔额后）您最终自付 ≈ ¥0~5,000</span>
+        </div>
+      </div>
+
+      <div class="route-card route-a">
+        <div class="route-badge">🔴 次优方案</div>
+        <div class="route-title">医保未报 → 商保仅赔60%</div>
+        <div style="background:#FFF;border-radius:10px;padding:16px;text-align:center;">
+          <span style="font-size:15px;">同一笔 15,000元费用（医保未报）</span><br>
+          <span style="font-size:22px;font-weight:700;color:#E07B6C;">安享百万仅赔 60% → 赔 9,000元</span><br>
+          <span style="font-size:14px;color:var(--text-light);">您自付 ¥6,000，比最优方案多付 ¥1,000~6,000</span>
+        </div>
+      </div>
+
+      <div class="highlight-box hl-red">
+        <span class="hl-icon">🎯</span>
+        <strong>核心策略：</strong>不管用哪张保单，只要涉及医保目录内的费用，<strong>一定要先让医保结算</strong>！哪怕医保只报很少一点，也能把商保赔付比例从60%拉升到100%。每一次住院、每一次购药之前，都先问："这个能走医保吗？"
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 五、购药操作 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-green">🛒</div>
+      <div class="section-title">口服靶向药购药操作（双路径）</div>
+    </div>
+
+    <div class="card">
+      <div class="route-card route-b">
+        <div class="route-badge">路径B 推荐</div>
+        <div class="route-title">医保先报 → 医院取药 + 理赔</div>
+        <ul class="route-steps">
+          <li><span class="step-tag">1</span><span>湘雅开具处方 → 医院药房取药 → <strong>医保窗口结算</strong> → 当场支付自付（约¥500~1,500）</span></li>
+          <li><span class="step-tag">2</span><span>保留医保结算单+发票。治疗结束后，汇总所有票据 → 向<strong>特药保2.0</strong>提交理赔→100%补差</span></li>
+          <li><span class="step-tag">3</span><span>如特药保仍有未覆盖的自付部分 → 再向<strong>安享百万</strong>提交理赔（恶性肿瘤特定药械费用保险金）</span></li>
+        </ul>
+      </div>
+
+      <div class="route-card route-a">
+        <div class="route-badge">路径A 备选</div>
+        <div class="route-title">医保拒付 → DTP药房直付</div>
+        <ul class="route-steps">
+          <li><span class="step-tag">1</span><span>获取医保拒付凭证 → 太保公众号预约DTP药房 → 提交处方+基因报告+拒付凭证</span></li>
+          <li><span class="step-tag">2</span><span>CPIC审核（1-3工作日）→ DTP药房取药 → <strong>特药保直付60%</strong> → 当场付40%自付（约¥1,992/周期）</span></li>
+          <li><span class="step-tag">3</span><span>40%自付部分 → 再向<strong>安享百万</strong>提交理赔（如适用）→ 可能再报销一部分</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 六、住院理赔流程 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-purple">🏥</div>
+      <div class="section-title">住院理赔流程（主险·安享百万）</div>
+    </div>
+
+    <div class="card">
+      <div class="flow-step">
+        <div style="background:#E8F4F8;">
+          <span class="flow-label" style="background:#4A90A4;">第1步</span>
+          <div class="flow-text">办理住院<br>告知医院有商保<br>保留所有票据</div>
+        </div>
+        <div style="background:#EDF7EF;">
+          <span class="flow-label" style="background:#6BAF7B;">第2步</span>
+          <div class="flow-text">出院结算<br>先走医保结算<br>获取医保结算单</div>
+        </div>
+        <div style="background:#EDF0FA;">
+          <span class="flow-label" style="background:#7B8CC4;">第3步</span>
+          <div class="flow-text">准备材料<br>结算单+发票+<br>出院小结+清单</div>
+        </div>
+        <div style="background:#FFF3E0;">
+          <span class="flow-label" style="background:#F5A623;">第4步</span>
+          <div class="flow-text">提交理赔<br>太保公众号<br>"理赔申请"入口</div>
+        </div>
+        <div style="background:#F5EEFA;">
+          <span class="flow-label" style="background:#9B59B6;">第5步</span>
+          <div class="flow-text">审核打款<br>3-5工作日<br>赔款到银行卡</div>
+        </div>
+      </div>
+
+      <div class="highlight-box hl-blue" style="margin-top:14px;">
+        <span class="hl-icon">📋</span>
+        <strong>住院理赔材料：</strong>身份证复印件 · 保单凭证 · 出院小结 · 住院费用发票 · 医保结算单 · 费用明细清单 · 诊断证明 · 银行卡号。
+      </div>
+
+      <div class="highlight-box hl-green">
+        <span class="hl-icon">💡</span>
+        <strong>住院津贴别忘了！</strong>安享百万每天有1,000元住院津贴。理赔时一并提交住院天数证明，可以和医疗费用分开计算。比如住院7天 = 额外获得7,000元津贴补偿。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 七、关键风险与注意事项 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-red">⚠️</div>
+      <div class="section-title">容易踩的坑 · 六大风险</div>
+    </div>
+
+    <div class="card">
+      <ul class="checklist">
+        <li>
+          <span class="chk">🔴</span>
+          <span>
+            <strong>风险一：两种保险分不清 → 报错地方</strong><br>
+            <span style="color:var(--text-secondary);">住院、手术、输液化疗 → <strong>用安享百万</strong>；口服靶向药购药 → <strong>用特药保2.0</strong>。搞反了会被拒赔。每次就医前问自己：这一笔是什么费用？</span>
+          </span>
+        </li>
+        <li>
+          <span class="chk">🔴</span>
+          <span>
+            <strong>风险二：不在指定药房买药 → 特药保不赔</strong><br>
+            <span style="color:var(--text-secondary);">特药保2.0严格要求必须从<strong>太保指定的DTP药房</strong>购药。自己从普通药房、网上药店买 → 一分不赔。购药前先打95500确认最近指定药房地址。<br>安享百万的口服药报销政策可能更宽松（按处方即可），但也建议提前确认。</span>
+          </span>
+        </li>
+        <li>
+          <span class="chk">🟠</span>
+          <span>
+            <strong>风险三：理赔时效不能拖</strong><br>
+            <span style="color:var(--text-secondary);">一般要求出险后60-90天内提交理赔。建议每次治疗结束后2周内整理票据并提交，不要等到"全部治疗结束"才统一理赔。特别是安享百万——后续住院和手术会持续产生费用，分批理赔可以减轻现金流压力。</span>
+          </span>
+        </li>
+        <li>
+          <span class="chk">🟡</span>
+          <span>
+            <strong>风险四：发票和处方必须一一对应</strong><br>
+            <span style="color:var(--text-secondary);">理赔审核逐一核对：处方上的药品名、规格、数量、日期 必须与发票完全一致。诊断（乙状结肠恶性肿瘤）必须与药品适应症一致。每次拿到票据当场核对。</span>
+          </span>
+        </li>
+        <li>
+          <span class="chk">🟠</span>
+          <span>
+            <strong>风险五：特药清单 ≠ 安享百万报销范围</strong><br>
+            <span style="color:var(--text-secondary);">呋喹替尼在特药保2.0清单第10号 → ✅ 确定。但安享百万的"恶性肿瘤特定药械费用"是否包含所有处方靶向药需要确认。如果未来使用西妥昔单抗（院内输注），走安享百万的住院/特殊门诊通道，不走特药保。</span>
+          </span>
+        </li>
+        <li>
+          <span class="chk">🔴</span>
+          <span>
+            <strong>风险六：特药保到期日 → 2027年2月8日</strong><br>
+            <span style="color:var(--text-secondary);">特药保2.0只保到2027年2月，到期后口服靶向药费用只能靠<strong>安享百万</strong>覆盖。安享百万保到2036年，且有保证续保条款。<strong>建议2026年12月联系太保咨询特药险续保方案。</strong></span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 八、必需材料清单 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-blue">📋</div>
+      <div class="section-title">随时备好 · 两份保单共用材料</div>
+    </div>
+
+    <div class="card">
+      <ul class="checklist">
+        <li><span class="chk">✅</span><span>身份证正反面复印件 ×5份</span></li>
+        <li><span class="chk">✅</span><span>安享百万保单凭证（保单号：21001213428520）</span></li>
+        <li><span class="chk">✅</span><span>特药保2.0保单凭证（保单号：210062627301381）</span></li>
+        <li><span class="chk">✅</span><span>病理报告（乙状结肠中分化腺癌）</span></li>
+        <li><span class="chk">✅</span><span>NGS+IHC基因检测完整报告</span></li>
+        <li><span class="chk">✅</span><span>每次治疗的医生处方</span></li>
+        <li><span class="chk">✅</span><span>每次住院的出院小结 + 费用明细清单</span></li>
+        <li><span class="chk">✅</span><span>每次费用的发票原件</span></li>
+        <li><span class="chk">✅</span><span>医保结算单（如有医保报销）</span></li>
+        <li><span class="chk">✅</span><span>理赔收款银行卡号</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 九、拒赔应对 ===== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-red">🆘</div>
+      <div class="section-title">万一被拒赔怎么办</div>
+    </div>
+
+    <div class="card">
+      <div class="danger-card" style="margin-top:0;">
+        <h3>📞 逐级应对流程</h3>
+        <p>
+          <strong>第一步：</strong>仔细阅读拒赔通知书，确认拒赔原因（材料不全 / 不在保障范围 / 既往症争议）。<br><br>
+          <strong>第二步：</strong>材料不全 → 补齐重交。如认为保险公司判定有误 → 拨打<strong>95500</strong>要求人工复核，强调确诊日期（2026.05.09）在安享百万和特药保的保险期间内，不属于既往症。<br><br>
+          <strong>第三步：</strong>仍被拒 → 保留所有沟通记录（通话录音、拒赔函、提交材料的回执），联系<strong>当地银保监局 12378 热线</strong>投诉。<br><br>
+          <strong>第四步：</strong>涉及金额较大 → 可咨询律师，通过法律途径维权。注意保险法规定被保险人享有两年诉讼时效。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <h2>📞 关键联系渠道</h2>
+    <div class="contact-row">
+      <div class="contact-item"><strong>太保客服</strong>95500</div>
+      <div class="contact-item"><strong>太保公众号</strong>"太平洋保险"</div>
+      <div class="contact-item"><strong>DTP药房查询</strong>95500→特药服务</div>
+      <div class="contact-item"><strong>银保监局投诉</strong>12378</div>
+    </div>
+    <div style="margin-top:16px; font-size:15px; opacity:0.8;">
+      编制日期：2026年6月25日 · 基于保单原文及安享百万/特药保2.0产品条款 · 具体以保单条款为准
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
