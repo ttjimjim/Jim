@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI 云中台项目 · 四阶运营框架</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --shell-red:#DD1D21;
+    --shell-yellow:#FBCE07;
+    --shell-dark:#404040;
+    --shell-gray:#A6A6A6;
+    --shell-line:#E6E6E6;
+    --shell-bg:#F7F7F7;
+    --shell-white:#FFFFFF;
+    --ink:#262626;
+}
+body{
+    font-family:"Helvetica Neue","Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    background:#F2F2F2;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+.container{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+}
+.slide-wrapper{
+    width:min(96vw,170.667vh);
+    height:min(54vw,96vh);
+    aspect-ratio:16/9;
+    position:relative;
+    overflow:hidden;
+    border-radius:10px;
+    background:var(--shell-white);
+    box-shadow:0 2px 24px rgba(0,0,0,.12);
+}
+.slide{
+    position:absolute;
+    inset:0;
+    display:none;
+    flex-direction:column;
+    background:var(--shell-white);
+}
+.slide.active{display:flex}
+.slide-top-band{
+    height:4.2%;
+    width:100%;
+    background:var(--shell-yellow);
+    flex-shrink:0;
+}
+.slide-body{
+    flex:1;
+    padding:1.75% 3.6% 1.5%;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    position:relative;
+}
+.slide-header{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    margin-bottom:1.2%;
+    flex-shrink:0;
+}
+.stage-badge{
+    background:var(--shell-yellow);
+    color:var(--shell-dark);
+    font-size:clamp(11px,1vw,14px);
+    font-weight:800;
+    padding:5px 16px;
+    border-radius:18px;
+    white-space:nowrap;
+    margin-top:4px;
+}
+.stage-title{
+    font-size:clamp(25px,2.8vw,42px);
+    color:var(--shell-dark);
+    font-weight:900;
+    line-height:1.05;
+}
+.stage-subtitle{
+    margin-top:5px;
+    font-size:clamp(11px,1.05vw,15px);
+    color:#666;
+    line-height:1.35;
+}
+.stage-number{
+    position:absolute;
+    top:2.5%;
+    right:3.8%;
+    font-size:clamp(58px,8vw,120px);
+    font-weight:900;
+    color:rgba(251,206,7,.12);
+    line-height:1;
+    user-select:none;
+    pointer-events:none;
+}
+
+/* Overview */
+.overview-body{
+    flex:1;
+    padding:1.8% 3.6% 1.2%;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    overflow:hidden;
+}
+.overview-title-area{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:1.3%;
+    flex-shrink:0;
+    background:var(--shell-yellow);
+    border-radius:0 28px 28px 0;
+    padding:12px 18px 12px 0;
+    width:min(900px,72%);
+}
+.overview-title-bar{
+    width:7px;
+    height:clamp(42px,5.2vw,66px);
+    background:var(--shell-red);
+    border-radius:3px;
+    flex-shrink:0;
+}
+.overview-title-main{
+    font-size:clamp(29px,3.7vw,50px);
+    font-weight:900;
+    color:var(--shell-dark);
+    line-height:1.05;
+}
+.overview-title-sub{
+    font-size:clamp(12px,1.2vw,16px);
+    color:var(--shell-dark);
+    margin-top:5px;
+}
+.flow-row{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:1%;
+    flex:1;
+    min-height:0;
+}
+.flow-card{
+    border:1px solid #DCDCDC;
+    border-top:6px solid var(--shell-yellow);
+    border-radius:8px;
+    padding:4% 5%;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    min-height:0;
+    position:relative;
+    cursor:pointer;
+    overflow:hidden;
+}
+.flow-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.flow-card-num{
+    position:absolute;
+    right:12px;
+    top:8px;
+    font-size:clamp(30px,4.2vw,54px);
+    line-height:1;
+    color:#E9E9E9;
+    font-weight:900;
+}
+.flow-card-name{
+    font-size:clamp(20px,2.1vw,29px);
+    font-weight:900;
+    color:var(--shell-dark);
+    line-height:1.1;
+    padding-right:42px;
+}
+.flow-card-tagline{
+    align-self:flex-start;
+    margin:6px 0 8px;
+    padding:3px 10px;
+    border-radius:3px;
+    background:var(--shell-yellow);
+    color:var(--shell-dark);
+    font-size:clamp(11px,1vw,14px);
+    font-weight:800;
+}
+.flow-card-desc{
+    font-size:clamp(11px,1vw,14px);
+    line-height:1.45;
+    color:#4A4A4A;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+}
+.mini-kpi{
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px 8px;
+    margin-top:8px;
+    padding-top:8px;
+    border-top:1px solid var(--shell-line);
+    flex-shrink:0;
+}
+.mini-kpi span{
+    font-size:clamp(10px,.9vw,12px);
+    color:#666;
+}
+.mini-kpi strong{
+    color:var(--shell-red);
+    font-size:clamp(13px,1.2vw,17px);
+    font-weight:900;
+}
+.overview-lower{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:1%;
+    margin-top:1%;
+    flex-shrink:0;
+}
+.overview-panel{
+    border:1px solid #DCDCDC;
+    border-top:5px solid var(--shell-yellow);
+    border-radius:8px;
+    padding:1.1% 1.3%;
+    background:var(--shell-white);
+}
+.panel-title{
+    font-size:clamp(10px,.9vw,13px);
+    color:#777;
+    font-weight:900;
+    letter-spacing:.8px;
+    margin-bottom:6px;
+}
+.roster-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:5px 10px;
+}
+.roster-line{
+    font-size:clamp(10px,.9vw,13px);
+    line-height:1.35;
+    color:#4A4A4A;
+}
+.roster-line strong{color:var(--shell-dark)}
+.overview-panel .chip-list{gap:5px}
+
+/* Detail slides */
+.detail-grid{
+    flex:1;
+    min-height:0;
+    display:grid;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    grid-template-rows:.92fr 1.08fr;
+    gap:1%;
+}
+.stage1-grid{
+    grid-template-rows:.82fr .9fr .82fr;
+    gap:1.1%;
+}
+.stage1-grid .purpose-card{grid-column:span 3}
+.stage1-grid .kpi-card{grid-column:span 3}
+.stage1-grid .advance-card{grid-column:span 6}
+.stage1-grid .role-card{grid-column:span 5}
+.stage1-grid .exit-card{grid-column:span 3}
+.stage1-grid .data-card{grid-column:span 4}
+.stage1-grid .people-card{grid-column:span 12}
+.stage1-grid .people-card{
+    padding:1.2% 1.5%;
+}
+.info-card{
+    border:1px solid #DCDCDC;
+    background:var(--shell-white);
+    border-radius:8px;
+    padding:2.1% 2.5%;
+    min-width:0;
+    min-height:0;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+.info-card.white{background:var(--shell-white)}
+.info-card.yellow{
+    background:#FFFBE5;
+    border-color:#F0D95A;
+}
+.kpi-card{
+    border-top:5px solid var(--shell-yellow);
+}
+.role-card,
+.exit-card,
+.data-card,
+.people-card,
+.purpose-card{
+    border-top:5px solid var(--shell-yellow);
+}
+.exit-card{
+    border-top-color:var(--shell-red);
+}
+.purpose-card{grid-column:span 4}
+.kpi-card{grid-column:span 4}
+.advance-card{grid-column:span 4}
+.role-card{grid-column:span 5}
+.data-card{grid-column:span 3}
+.people-card{grid-column:span 4}
+.card-title{
+    font-size:clamp(10px,.9vw,13px);
+    color:var(--shell-dark);
+    font-weight:900;
+    letter-spacing:.9px;
+    margin-bottom:7px;
+    flex-shrink:0;
+}
+.card-title.red{color:var(--shell-red)}
+.stage1-grid .card-title{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:clamp(12px,1.05vw,15px);
+    color:var(--shell-dark);
+    letter-spacing:.4px;
+    margin-bottom:8px;
+}
+.stage1-grid .card-title::before{
+    content:"";
+    width:4px;
+    height:15px;
+    border-radius:2px;
+    background:var(--shell-yellow);
+    flex-shrink:0;
+}
+.stage1-grid .card-title.red{
+    color:var(--shell-red);
+}
+.stage1-grid .card-title.red::before{
+    background:var(--shell-red);
+}
+.purpose-text{
+    font-size:clamp(13px,1.2vw,18px);
+    line-height:1.48;
+    color:var(--shell-dark);
+    font-weight:700;
+}
+.note-text{
+    margin-top:auto;
+    padding-top:8px;
+    border-top:1px solid rgba(0,0,0,.08);
+    font-size:clamp(10px,.9vw,13px);
+    line-height:1.35;
+    color:#5E5E5E;
+}
+.kpi-list{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:5px;
+    min-height:0;
+}
+.kpi-row{
+    display:grid;
+    grid-template-columns:74px 1fr;
+    gap:9px;
+    align-items:center;
+    min-width:0;
+}
+.kpi-value{
+    color:var(--shell-red);
+    font-weight:900;
+    font-size:clamp(17px,1.65vw,26px);
+    text-align:right;
+    white-space:nowrap;
+}
+.kpi-label{
+    color:var(--shell-dark);
+    font-size:clamp(10px,.95vw,14px);
+    line-height:1.28;
+    font-weight:650;
+}
+.rule-list{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    min-height:0;
+}
+.rule-item{
+    display:grid;
+    grid-template-columns:10px 1fr;
+    gap:7px;
+    font-size:clamp(10px,.95vw,14px);
+    line-height:1.35;
+    color:#4A4A4A;
+}
+.rule-mark{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--shell-red);
+    margin-top:6px;
+}
+.rule-mark.yellow{background:var(--shell-yellow)}
+.rule-mark.gray{background:var(--shell-gray)}
+.reward-box{
+    margin-top:auto;
+    padding-top:7px;
+    border-top:1px solid rgba(0,0,0,.1);
+    font-size:clamp(10px,.95vw,14px);
+    line-height:1.35;
+    color:#5B4B00;
+    font-weight:650;
+}
+.role-table{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:6px 9px;
+    min-height:0;
+}
+.role-label{
+    background:var(--shell-dark);
+    color:var(--shell-white);
+    border-radius:3px;
+    padding:3px 6px;
+    align-self:start;
+    font-size:clamp(9px,.78vw,11px);
+    font-weight:900;
+    text-align:center;
+}
+.role-copy{
+    font-size:clamp(10px,.94vw,14px);
+    line-height:1.35;
+    color:#4A4A4A;
+}
+.role-copy strong{color:var(--shell-dark)}
+.data-stack{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+.data-pill{
+    background:var(--shell-white);
+    border:1px solid var(--shell-line);
+    border-radius:5px;
+    padding:6px 8px;
+    font-size:clamp(10px,.88vw,13px);
+    line-height:1.28;
+    color:#4A4A4A;
+    font-weight:650;
+}
+.people-summary{
+    font-size:clamp(10px,.95vw,14px);
+    color:#4A4A4A;
+    line-height:1.35;
+    margin-bottom:6px;
+    font-weight:650;
+}
+.compact-copy{
+    font-size:clamp(10px,.95vw,14px);
+    line-height:1.4;
+    color:#4A4A4A;
+    font-weight:650;
+}
+.large-chip-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+.large-chip{
+    border:1px solid #D8D8D8;
+    background:var(--shell-white);
+    border-radius:5px;
+    padding:6px 8px;
+    font-size:clamp(10px,.94vw,14px);
+    color:#4A4A4A;
+    font-weight:800;
+    line-height:1.2;
+    flex:1;
+    min-width:110px;
+    text-align:center;
+}
+.large-chip.total{
+    border-color:rgba(221,29,33,.35);
+    color:var(--shell-red);
+}
+.people-entry-grid{
+    display:grid;
+    grid-template-columns:.95fr 1.35fr;
+    gap:8px;
+    min-height:0;
+    flex:1;
+}
+.entry-block{
+    border:1px solid var(--shell-line);
+    background:var(--shell-bg);
+    border-radius:6px;
+    padding:6px 8px;
+    min-height:0;
+    overflow:hidden;
+}
+.entry-title{
+    font-size:clamp(9px,.78vw,11px);
+    color:#777;
+    font-weight:900;
+    margin-bottom:4px;
+}
+.entry-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px;
+}
+.entry-chip{
+    border:1px solid #D8D8D8;
+    background:var(--shell-white);
+    border-radius:4px;
+    padding:3px 6px;
+    font-size:clamp(8.5px,.74vw,11px);
+    line-height:1.15;
+    color:#4A4A4A;
+    font-weight:700;
+    white-space:normal;
+    overflow-wrap:anywhere;
+}
+.entry-chip.red{
+    border-color:rgba(221,29,33,.35);
+    color:var(--shell-red);
+}
+.area-list{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:4px;
+}
+.area-slot{
+    border:1px solid #D8D8D8;
+    background:var(--shell-white);
+    border-radius:4px;
+    padding:4px 5px;
+    font-size:clamp(8.5px,.76vw,11px);
+    line-height:1.15;
+    color:#4A4A4A;
+    font-weight:800;
+    text-align:center;
+    overflow-wrap:anywhere;
+}
+.area-slot.total{
+    border-color:rgba(221,29,33,.35);
+    color:var(--shell-red);
+}
+.chip-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    min-height:0;
+    overflow:hidden;
+}
+.chip{
+    border:1px solid #D8D8D8;
+    background:var(--shell-white);
+    border-radius:4px;
+    padding:3px 7px;
+    font-size:clamp(9px,.82vw,12px);
+    line-height:1.2;
+    color:#4A4A4A;
+    white-space:nowrap;
+    font-weight:650;
+}
+.chip.red{
+    border-color:rgba(221,29,33,.35);
+    color:var(--shell-red);
+}
+.bottom-bar{
+    margin-top:1%;
+    padding-top:.75%;
+    border-top:1px solid var(--shell-line);
+    display:flex;
+    align-items:center;
+    gap:2%;
+    flex-shrink:0;
+    color:#666;
+    font-size:clamp(10px,.9vw,13px);
+    line-height:1.32;
+}
+.bottom-tag{
+    background:var(--shell-dark);
+    color:var(--shell-white);
+    border-radius:3px;
+    padding:2px 9px;
+    font-weight:900;
+    white-space:nowrap;
+}
+.bottom-bar strong{color:var(--shell-dark)}
+
+/* Navigation */
+.nav-bar{
+    width:min(96vw,170.667vh);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-shrink:0;
+}
+.nav-btn{
+    border:1px solid rgba(0,0,0,.08);
+    background:rgba(255,255,255,.55);
+    color:#777;
+    border-radius:4px;
+    padding:8px 13px;
+    font-family:inherit;
+    font-size:clamp(10px,.9vw,13px);
+    font-weight:750;
+    cursor:pointer;
+    white-space:nowrap;
+}
+.nav-btn:hover{background:var(--shell-white);color:var(--shell-dark)}
+.nav-btn.active{
+    background:var(--shell-yellow);
+    color:var(--shell-dark);
+    border-color:var(--shell-yellow);
+}
+.nav-spacer{flex:1}
+.nav-dot-group{display:flex;gap:6px;align-items:center}
+.nav-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:rgba(0,0,0,.13);
+}
+.nav-dot.current{background:var(--shell-yellow)}
+.nav-arrow{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:1px solid rgba(0,0,0,.08);
+    background:rgba(255,255,255,.55);
+    color:#777;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
+}
+.nav-arrow:hover{background:var(--shell-white);color:var(--shell-dark)}
+.nav-arrow:disabled{opacity:.25;cursor:default}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="slide-wrapper" id="slideWrapper">
+
+<!-- SLIDE 0 -->
+<div class="slide active" data-index="0">
+    <div class="slide-top-band"></div>
+    <div class="overview-body">
+        <div class="overview-title-area">
+            <div class="overview-title-bar"></div>
+            <div>
+                <div class="overview-title-main">AI 云中台 · 四阶运营框架</div>
+                <div class="overview-title-sub">从拜访纪律、机会识别、战役转化到经销商自运营，形成可评审、可激励、可复制的推进机制</div>
+            </div>
+        </div>
+
+        <div class="flow-row">
+            <div class="flow-card" onclick="navigate(1)">
+                <div class="flow-card-num">01</div>
+                <div class="flow-card-name">初阶</div>
+                <span class="flow-card-tagline">抓纪律</span>
+                <div class="flow-card-desc">先把基础动作做实：拜访量、新客开发、老客户超凡陈列三项同时达标，首周只优化不评估。</div>
+                <div class="mini-kpi"><span>通关：</span><strong>≥8次</strong><span>日均</span><strong>≥40%</strong><span>新客</span><strong>≥80%</strong><span>老客超凡</span></div>
+            </div>
+            <div class="flow-card" onclick="navigate(2)">
+                <div class="flow-card-num">02</div>
+                <div class="flow-card-name">中阶</div>
+                <span class="flow-card-tagline">识机会</span>
+                <div class="flow-card-desc">经销商 DSR 使用智拜访沉淀拜访数据，叠加 ERP 客户交易数据，验证机会客户是否被拜访并成交。</div>
+                <div class="mini-kpi"><span>通关：</span><strong>≥70%</strong><span>机会拜访</span><strong>≥20%</strong><span>机会成交</span></div>
+            </div>
+            <div class="flow-card" onclick="navigate(3)">
+                <div class="flow-card-num">03</div>
+                <div class="flow-card-name">高阶</div>
+                <span class="flow-card-tagline">追爆点</span>
+                <div class="flow-card-desc">跟 RSM/ICAM 结合一个爆点项目，定制经销商最需要改进的业务机会，用 AI 辅助过程落地和结果达成。</div>
+                <div class="mini-kpi"><span>通关：</span><strong>≥90%</strong><span>触达</span><strong>≥80%</strong><span>动作</span><strong>≥80%</strong><span>达成</span></div>
+            </div>
+            <div class="flow-card" onclick="navigate(4)">
+                <div class="flow-card-num">04</div>
+                <div class="flow-card-name">毕业</div>
+                <span class="flow-card-tagline">自运营</span>
+                <div class="flow-card-desc">教会经销商和 RSM/ICAM 自己运用 AI 工具管理业务，ICEM 从主导者退到辅导者。</div>
+                <div class="mini-kpi"><span>通关：</span><strong>≥80%</strong><span>自主使用</span><strong>≥80%</strong><span>建议闭环</span><strong>不降级</strong><span>指标维持</span></div>
+            </div>
+        </div>
+
+        <div class="overview-lower">
+            <div class="overview-panel">
+                <div class="panel-title">参与名单总览</div>
+                <div class="roster-grid">
+                    <div class="roster-line"><strong>总数：</strong>xx 家。</div>
+                    <div class="roster-line"><strong>东区：</strong>xx 家　<strong>北区：</strong>xx 家　<strong>南西区：</strong>xx 家。</div>
+                    <div class="roster-line"><strong>特区：</strong>xx 家　<strong>天河区：</strong>xx 家。</div>
+                    <div class="roster-line"><strong>名单原则：</strong>具体经销商名单出来后，再判断是否放进页面。</div>
+                </div>
+            </div>
+            <div class="overview-panel">
+                <div class="panel-title">ICE 管理机制</div>
+                <div class="chip-list">
+                    <span class="chip red">周评审</span>
+                    <span class="chip">P0闭环</span>
+                    <span class="chip">阶段通关权益</span>
+                    <span class="chip">ICEM出AI报告</span>
+                    <span class="chip">RSM/ICAM抓落地</span>
+                    <span class="chip">数据逐阶叠加</span>
+                    <span class="chip">日报+周报驱动改善</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide" data-index="1">
+    <div class="slide-top-band"></div>
+    <div class="slide-body">
+        <span class="stage-number">01</span>
+        <div class="slide-header">
+            <span class="stage-badge">第一阶段</span>
+            <div>
+                <div class="stage-title">初阶 · 抓纪律</div>
+                <div class="stage-subtitle">用照片拜访数据把基础动作拉齐，先解决“人在不在、去得够不够、是否还在维护老盘子”。</div>
+            </div>
+        </div>
+        <div class="detail-grid stage1-grid">
+            <div class="info-card purpose-card white">
+                <div class="card-title">阶段目的</div>
+                <div class="purpose-text">建立 DSR 基础拜访纪律，同时把新客开发和老客户超凡陈列作为初阶硬门槛。</div>
+                <div class="note-text">初阶先看三件事：拜访量够不够、新客有没有开发、老客高端陈列是否到位。</div>
+            </div>
+            <div class="info-card kpi-card">
+                <div class="card-title red">KPI</div>
+                <div class="kpi-list">
+                    <div class="kpi-row"><span class="kpi-value">≥8</span><span class="kpi-label">人均拜访次数</span></div>
+                    <div class="kpi-row"><span class="kpi-value">≥40%</span><span class="kpi-label">新客户拜访率</span></div>
+                    <div class="kpi-row"><span class="kpi-value">≥80%</span><span class="kpi-label">老客户超凡陈列率</span></div>
+                </div>
+            </div>
+            <div class="info-card advance-card yellow">
+                <div class="card-title">进阶条件与奖励机制</div>
+                <div class="rule-list">
+                    <div class="rule-item"><span class="rule-mark"></span><span>上线首周作为优化周，不参与评估。</span></div>
+                    <div class="rule-item"><span class="rule-mark yellow"></span><span>之后三周均值同时达标：人均拜访 ≥8、新客率 ≥40%、老客超凡陈列率 ≥80%。</span></div>
+                    <div class="rule-item"><span class="rule-mark gray"></span><span>三项均值均达标，即可从初阶进入中阶候选池。</span></div>
+                </div>
+                <div class="reward-box">奖励：进入中阶候选池；所有 DSR 获得升级礼包（暂定高级工装）。</div>
+            </div>
+            <div class="info-card role-card">
+                <div class="card-title">ICEM / RSM/ICAM 角色分工</div>
+                <div class="role-table">
+                    <div class="role-label">ICEM</div>
+                    <div class="role-copy"><strong>基于数据输出 AI 改善报告。</strong>结合经销商实际情况，发布日报或日报+周报，识别低拜访、低新客、老客超凡不足 DSR，并给出改善建议。</div>
+                    <div class="role-label">RSM/ICAM</div>
+                    <div class="role-copy"><strong>用报告推动管理改善。</strong>和 DO/DSM 紧密合作，基于 AI 改善报告推动 DSR 调整路线、补新客、整改超凡陈列，跟进三周均值达标。</div>
+                </div>
+            </div>
+            <div class="info-card exit-card">
+                <div class="card-title red">退出机制</div>
+                <div class="purpose-text">三周均值不达标，即退出项目。</div>
+                <div class="note-text">退出后回到基础整改池，待重新具备数据质量和执行意愿后再申请进入。</div>
+            </div>
+            <div class="info-card data-card white">
+                <div class="card-title">数据来源</div>
+                <div class="data-stack">
+                    <div class="data-pill">每个经销商独立项目群</div>
+                    <div class="data-pill">DSR 在群里照片打卡</div>
+                    <div class="data-pill">后台人工数据采集</div>
+                    <div class="data-pill">后期升级：壳畅销照片打卡入口 + AI 照片识别采集</div>
+                </div>
+            </div>
+            <div class="info-card people-card white">
+                <div class="card-title">参与名单</div>
+                <div class="people-entry-grid">
+                    <div class="entry-block">
+                        <div class="entry-title">准入要求</div>
+                        <div class="entry-chips">
+                            <span class="entry-chip red">经销商独立项目群已建立</span>
+                            <span class="entry-chip">DSR 可稳定照片打卡</span>
+                            <span class="entry-chip">后台人工采集可执行</span>
+                            <span class="entry-chip">愿意接受三周均值评估</span>
+                        </div>
+                    </div>
+                    <div class="entry-block">
+                        <div class="entry-title">大区数量 / 名单预留</div>
+                        <div class="area-list">
+                            <span class="area-slot">东区 xx 家<br>名单待补</span>
+                            <span class="area-slot">北区 xx 家<br>名单待补</span>
+                            <span class="area-slot">南西区 xx 家<br>名单待补</span>
+                            <span class="area-slot">特区 xx 家<br>名单待补</span>
+                            <span class="area-slot">天河区 xx 家<br>名单待补</span>
+                            <span class="area-slot total">总数 xx 家<br>待确认</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <span class="bottom-tag">核心问题</span>
+            <span><strong>初阶通关看三项均值：</strong>人均拜访次数、新客户拜访率、老客户超凡陈列率；首周只优化，不评估。</span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" data-index="2">
+    <div class="slide-top-band"></div>
+    <div class="slide-body">
+        <span class="stage-number">02</span>
+        <div class="slide-header">
+            <span class="stage-badge">第二阶段</span>
+            <div>
+                <div class="stage-title">中阶 · 识机会</div>
+                <div class="stage-subtitle">用智拜访记录拜访动作，用 ERP 客户交易数据验证机会客户是否被有效触达和转化。</div>
+            </div>
+        </div>
+        <div class="detail-grid stage1-grid">
+            <div class="info-card purpose-card white">
+                <div class="card-title">阶段目的</div>
+                <div class="purpose-text">从“拜访动作达标”升级为“机会客户被触达并成交”，让 DSR 的拜访围绕真实交易机会展开。</div>
+                <div class="note-text">机会客户定义建议：由 ERP 交易、客户活跃度、产品组合缺口和竞品门店标签共同识别。</div>
+            </div>
+            <div class="info-card kpi-card">
+                <div class="card-title red">KPI</div>
+                <div class="kpi-list">
+                    <div class="kpi-row"><span class="kpi-value">≥70%</span><span class="kpi-label">机会客户拜访率</span></div>
+                    <div class="kpi-row"><span class="kpi-value">≥20%</span><span class="kpi-label">机会客户成交率</span></div>
+                </div>
+            </div>
+            <div class="info-card advance-card yellow">
+                <div class="card-title">进阶条件与奖励机制</div>
+                <div class="rule-list">
+                    <div class="rule-item"><span class="rule-mark"></span><span>进阶首周作为优化周，不参与评估。</span></div>
+                    <div class="rule-item"><span class="rule-mark yellow"></span><span>之后三周均值同时达标：机会客户拜访率 ≥70%、机会客户成交率 ≥20%。</span></div>
+                    <div class="rule-item"><span class="rule-mark gray"></span><span>两项均值均达标，即可从中阶进入高阶候选池。</span></div>
+                </div>
+                <div class="reward-box">奖励：进入高阶候选池；所有 DSR 获得升级礼包（暂定大疆麦克风）。</div>
+            </div>
+            <div class="info-card role-card">
+                <div class="card-title">ICEM / RSM/ICAM 角色分工</div>
+                <div class="role-table">
+                    <div class="role-label">ICEM</div>
+                    <div class="role-copy"><strong>输出机会客户 AI 报告。</strong>结合智拜访和 ERP 数据，识别未拜访、拜访未成交、跟进停滞客户，并给出 DSR 跟进建议。</div>
+                    <div class="role-label">RSM/ICAM</div>
+                    <div class="role-copy"><strong>推动清单落地。</strong>和 DO/DSM 使用 AI 报告追机会客户清单，盯 DSR 是否拜访、是否成交、是否形成下一步反馈。</div>
+                </div>
+            </div>
+            <div class="info-card exit-card">
+                <div class="card-title red">退出机制</div>
+                <div class="purpose-text">三周均值不达标，即退出项目。</div>
+                <div class="note-text">退出后回到中阶整改池，待智拜访使用、ERP 数据质量和机会客户跟进稳定后再申请进入。</div>
+            </div>
+            <div class="info-card data-card white">
+                <div class="card-title">数据来源</div>
+                <div class="data-stack">
+                    <div class="data-pill">经销商 DSR 使用智拜访作为拜访数据来源</div>
+                    <div class="data-pill">经销商提供 ERP 客户交易数据作为交易数据来源</div>
+                    <div class="data-pill">不采集交易价格</div>
+                    <div class="data-pill">客户映射：智拜访门店 × ERP 客户</div>
+                </div>
+            </div>
+            <div class="info-card people-card white">
+                <div class="card-title">参与名单</div>
+                <div class="people-entry-grid">
+                    <div class="entry-block">
+                        <div class="entry-title">准入要求</div>
+                        <div class="entry-chips">
+                            <span class="entry-chip red">初阶三周均值达标</span>
+                            <span class="entry-chip">智拜访稳定使用</span>
+                            <span class="entry-chip">ERP客户字段完成映射</span>
+                            <span class="entry-chip">不采集交易价格</span>
+                            <span class="entry-chip">机会客户清单可日会追踪</span>
+                        </div>
+                    </div>
+                    <div class="entry-block">
+                        <div class="entry-title">大区数量 / 名单预留</div>
+                        <div class="area-list">
+                            <span class="area-slot">东区 xx 家<br>名单待补</span>
+                            <span class="area-slot">北区 xx 家<br>名单待补</span>
+                            <span class="area-slot">南西区 xx 家<br>名单待补</span>
+                            <span class="area-slot">特区 xx 家<br>名单待补</span>
+                            <span class="area-slot">天河区 xx 家<br>名单待补</span>
+                            <span class="area-slot total">总数 xx 家<br>待确认</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <span class="bottom-tag">核心问题</span>
+            <span><strong>中阶评估口径建议：</strong>机会客户拜访率 = 已拜访机会客户 / 机会客户清单；机会客户成交率 = 已成交机会客户 / 已拜访机会客户。</span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" data-index="3">
+    <div class="slide-top-band"></div>
+    <div class="slide-body">
+        <span class="stage-number">03</span>
+        <div class="slide-header">
+            <span class="stage-badge">第三阶段</span>
+            <div>
+                <div class="stage-title">高阶 · 追爆点</div>
+                <div class="stage-subtitle">跟 RSM/ICAM 结合一个爆点项目，定制经销商需要改进的业务机会，用 AI 辅助过程落地和结果达成。</div>
+            </div>
+        </div>
+        <div class="detail-grid stage1-grid">
+            <div class="info-card purpose-card white">
+                <div class="card-title">阶段目的</div>
+                <div class="purpose-text">围绕一个明确 RSM/ICAM 爆点项目，把目标客户、关键动作、资源支持和达成结果串成闭环。</div>
+                <div class="note-text">爆点示例：光速突破、HX 替换、竞品门店突破、沉睡客户激活、高潜新客转化。</div>
+            </div>
+            <div class="info-card kpi-card">
+                <div class="card-title red">KPI</div>
+                <div class="kpi-list">
+                    <div class="kpi-row"><span class="kpi-value">≥90%</span><span class="kpi-label">战役客户触达率</span></div>
+                    <div class="kpi-row"><span class="kpi-value">≥80%</span><span class="kpi-label">战役动作完成率</span></div>
+                    <div class="kpi-row"><span class="kpi-value">≥80%</span><span class="kpi-label">战役目标达成率</span></div>
+                </div>
+            </div>
+            <div class="info-card advance-card yellow">
+                <div class="card-title">进阶条件与奖励机制</div>
+                <div class="rule-list">
+                    <div class="rule-item"><span class="rule-mark"></span><span>战役首周作为准备周，不参与评估。</span></div>
+                    <div class="rule-item"><span class="rule-mark yellow"></span><span>之后按项目周期评估：触达率 ≥90%、动作完成率 ≥80%、目标达成率 ≥80%。</span></div>
+                    <div class="rule-item"><span class="rule-mark gray"></span><span>形成可复制战役 SOP：目标清单、关键动作、AI 追踪、复盘模板。</span></div>
+                </div>
+                <div class="reward-box">奖励：进入毕业候选池；战役案例进入区域标杆库；RSM/ICAM 后续活动资源优先匹配达标队伍。</div>
+            </div>
+            <div class="info-card role-card">
+                <div class="card-title">ICEM / RSM/ICAM 角色分工</div>
+                <div class="role-table">
+                    <div class="role-label">ICEM</div>
+                    <div class="role-copy"><strong>输出战役 AI 报告。</strong>围绕 RSM/ICAM 爆点项目，追踪触达、动作、达成和卡点，给出过程改善与攻坚建议。</div>
+                    <div class="role-label">RSM/ICAM</div>
+                    <div class="role-copy"><strong>提供业务爆点并推动落地。</strong>明确产品策略、活动资源、目标边界和关键客户攻坚支持，和 DO/DSM 基于 AI 战役报告推动 DSR 执行。</div>
+                </div>
+            </div>
+            <div class="info-card exit-card">
+                <div class="card-title red">退出机制</div>
+                <div class="purpose-text">项目周期不达标，即退出项目。</div>
+                <div class="note-text">退出后回到中阶继续做机会识别和转化基础，待爆点项目、资源和执行条件成熟后再申请进入。</div>
+            </div>
+            <div class="info-card data-card white">
+                <div class="card-title">数据来源</div>
+                <div class="data-stack">
+                    <div class="data-pill">智拜访拜访数据</div>
+                    <div class="data-pill">ERP 客户交易数据</div>
+                    <div class="data-pill">RSM/ICAM 爆点项目目标清单</div>
+                    <div class="data-pill">关键动作完成记录、跟进反馈、战役达成结果</div>
+                </div>
+            </div>
+            <div class="info-card people-card white">
+                <div class="card-title">参与名单</div>
+                <div class="people-entry-grid">
+                    <div class="entry-block">
+                        <div class="entry-title">准入要求</div>
+                        <div class="entry-chips">
+                            <span class="entry-chip red">中阶三周均值达标</span>
+                            <span class="entry-chip">RSM/ICAM 爆点项目明确</span>
+                            <span class="entry-chip">目标客户清单已确认</span>
+                            <span class="entry-chip">关键动作可追踪</span>
+                            <span class="entry-chip">战役资源已对齐</span>
+                        </div>
+                    </div>
+                    <div class="entry-block">
+                        <div class="entry-title">大区数量 / 名单预留</div>
+                        <div class="area-list">
+                            <span class="area-slot">东区 xx 家<br>名单待补</span>
+                            <span class="area-slot">北区 xx 家<br>名单待补</span>
+                            <span class="area-slot">南西区 xx 家<br>名单待补</span>
+                            <span class="area-slot">特区 xx 家<br>名单待补</span>
+                            <span class="area-slot">天河区 xx 家<br>名单待补</span>
+                            <span class="area-slot total">总数 xx 家<br>待确认</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <span class="bottom-tag">核心问题</span>
+            <span><strong>高阶评估口径建议：</strong>触达率看有没有去；动作完成率看有没有按打法做；目标达成率看 RSM/ICAM 定义的爆点结果是否达成。</span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" data-index="4">
+    <div class="slide-top-band"></div>
+    <div class="slide-body">
+        <span class="stage-number">04</span>
+        <div class="slide-header">
+            <span class="stage-badge">毕业阶段</span>
+            <div>
+                <div class="stage-title">毕业 · 自运营</div>
+                <div class="stage-subtitle">教会经销商和 RSM/ICAM 自己运用 AI 工具管理业务，ICEM 从报告输出者退到辅导校准者。</div>
+            </div>
+        </div>
+        <div class="detail-grid stage1-grid">
+            <div class="info-card purpose-card white">
+                <div class="card-title">阶段目的</div>
+                <div class="purpose-text">教会经销商团队和 RSM/ICAM 自己用 AI 工具管理 DSR、客户机会和业务战役。</div>
+                <div class="note-text">ICEM 辅助参与辅导、校准报告解读方法和检查复盘质量，不再代替经销商管理团队。</div>
+            </div>
+            <div class="info-card kpi-card">
+                <div class="card-title red">KPI</div>
+                <div class="kpi-list">
+                    <div class="kpi-row"><span class="kpi-value">≥80%</span><span class="kpi-label">AI 工具自主使用率</span></div>
+                    <div class="kpi-row"><span class="kpi-value">≥80%</span><span class="kpi-label">AI 建议闭环率</span></div>
+                    <div class="kpi-row"><span class="kpi-value">≥80%</span><span class="kpi-label">自主复盘完成率</span></div>
+                    <div class="kpi-row"><span class="kpi-value">不降级</span><span class="kpi-label">关键业务指标维持</span></div>
+                </div>
+            </div>
+            <div class="info-card advance-card yellow">
+                <div class="card-title">毕业条件与奖励机制</div>
+                <div class="rule-list">
+                    <div class="rule-item"><span class="rule-mark"></span><span>连续 4 周由经销商和 RSM/ICAM 自主使用 AI 工具管理业务。</span></div>
+                    <div class="rule-item"><span class="rule-mark yellow"></span><span>AI 建议闭环率 ≥80%，自主复盘完成率 ≥80%。</span></div>
+                    <div class="rule-item"><span class="rule-mark gray"></span><span>初阶、中阶、高阶关键指标不降级，ICEM 不再代做分析和复盘。</span></div>
+                </div>
+                <div class="reward-box">奖励：授予“AI 自运营经销商”标杆资格；进入工具包优先升级名单；优秀案例用于区域复制。</div>
+            </div>
+            <div class="info-card role-card">
+                <div class="card-title">ICEM / RSM/ICAM 角色分工</div>
+                <div class="role-table">
+                    <div class="role-label">ICEM</div>
+                    <div class="role-copy"><strong>辅导和校准。</strong>训练 RSM/ICAM 与 DO/DSM 解读 AI 报告、制定改善动作、抽查复盘质量、沉淀最佳实践。</div>
+                    <div class="role-label">RSM/ICAM</div>
+                    <div class="role-copy"><strong>自主使用 AI 管业务。</strong>会看 AI 报告，能判断问题、安排动作，和 DO/DSM 推动 DSR 执行，把 AI 工具变成日常管理抓手。</div>
+                    <div class="role-label">经销商</div>
+                    <div class="role-copy"><strong>自主运营。</strong>DO/DSM 自己组织 DSR 日会和周复盘，使用 AI 报告追踪拜访、机会、战役和异常闭环。</div>
+                </div>
+            </div>
+            <div class="info-card exit-card yellow">
+                <div class="card-title">持续改善机制</div>
+                <div class="purpose-text">毕业后不回退，进入持续改善。</div>
+                <div class="note-text">AI 每月识别指标下滑、机会停滞和建议未闭环；DO/DSM 与 RSM/ICAM 自主制定改善清单，ICEM 参与月度报告解读辅导和方法校准。</div>
+            </div>
+            <div class="info-card data-card white">
+                <div class="card-title">数据来源</div>
+                <div class="data-stack">
+                    <div class="data-pill">AI 使用日志</div>
+                    <div class="data-pill">DSR 拜访 / 智拜访数据</div>
+                    <div class="data-pill">ERP 客户交易数据</div>
+                    <div class="data-pill">AI 建议关闭记录、日会/周复盘记录、战役跟进结果</div>
+                </div>
+            </div>
+            <div class="info-card people-card white">
+                <div class="card-title">参与名单</div>
+                <div class="people-entry-grid">
+                    <div class="entry-block">
+                        <div class="entry-title">准入要求</div>
+                        <div class="entry-chips">
+                            <span class="entry-chip red">完成高阶战役</span>
+                            <span class="entry-chip">连续 4 周不降级</span>
+                            <span class="entry-chip">经销商主管愿意接手日会/周复盘</span>
+                            <span class="entry-chip">RSM/ICAM 可独立使用 AI 工具</span>
+                            <span class="entry-chip">AI 建议可闭环追踪</span>
+                        </div>
+                    </div>
+                    <div class="entry-block">
+                        <div class="entry-title">大区数量 / 名单预留</div>
+                        <div class="area-list">
+                            <span class="area-slot">东区 xx 家<br>名单待补</span>
+                            <span class="area-slot">北区 xx 家<br>名单待补</span>
+                            <span class="area-slot">南西区 xx 家<br>名单待补</span>
+                            <span class="area-slot">特区 xx 家<br>名单待补</span>
+                            <span class="area-slot">天河区 xx 家<br>名单待补</span>
+                            <span class="area-slot total">总数 xx 家<br>待确认</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <span class="bottom-tag">核心问题</span>
+            <span><strong>毕业不是 ICEM 一直代做报告，</strong>而是经销商和 RSM/ICAM 能自己用 AI 工具管理业务，ICEM 从报告输出者退到辅导校准者。</span>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="nav-bar">
+    <button class="nav-btn active" data-slide="0">总览</button>
+    <button class="nav-btn" data-slide="1">初阶·抓纪律</button>
+    <button class="nav-btn" data-slide="2">中阶·识机会</button>
+    <button class="nav-btn" data-slide="3">高阶·追爆点</button>
+    <button class="nav-btn" data-slide="4">毕业·自运营</button>
+    <span class="nav-spacer"></span>
+    <div class="nav-dot-group" id="dotGroup">
+        <span class="nav-dot current"></span><span class="nav-dot"></span><span class="nav-dot"></span><span class="nav-dot"></span><span class="nav-dot"></span>
+    </div>
+    <span class="nav-spacer"></span>
+    <button class="nav-arrow" id="prevBtn" onclick="navigate(-1)">&#9664;</button>
+    <button class="nav-arrow" id="nextBtn" onclick="navigate(1)">&#9654;</button>
+</div>
+</div>
+
+<script>
+(function(){
+    var current=0,total=5;
+    var slides=document.querySelectorAll(".slide");
+    var dots=document.querySelectorAll("#dotGroup .nav-dot");
+    var btns=document.querySelectorAll(".nav-btn");
+    var prevBtn=document.getElementById("prevBtn");
+    var nextBtn=document.getElementById("nextBtn");
+    function show(n){
+        current=((n%total)+total)%total;
+        slides.forEach(function(s,i){s.classList.toggle("active",i===current);});
+        dots.forEach(function(d,i){d.classList.toggle("current",i===current);});
+        btns.forEach(function(b,i){b.classList.toggle("active",i===current);});
+        prevBtn.disabled=current===0;
+        nextBtn.disabled=current===total-1;
+    }
+    window.navigate=function(dir){
+        var next=current+dir;
+        if(next>=0&&next<total)show(next);
+    };
+    btns.forEach(function(btn){
+        btn.addEventListener("click",function(){show(parseInt(btn.dataset.slide,10));});
+    });
+    document.addEventListener("keydown",function(e){
+        if(e.key==="ArrowRight"||e.key==="ArrowDown")navigate(1);
+        else if(e.key==="ArrowLeft"||e.key==="ArrowUp")navigate(-1);
+        else if(e.key>="1"&&e.key<="5")show(parseInt(e.key,10)-1);
+    });
+    show(0);
+})();
+</script>
+</body>
+</html>
