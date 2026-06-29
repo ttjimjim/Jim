@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI 云中台项目流程图 · ICEM / RSM/ICAM 控制点</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --shell-yellow:#FBCE07;
+  --shell-red:#DD1D21;
+  --shell-dark:#404040;
+  --shell-gray:#A6A6A6;
+  --shell-line:#E4E4E4;
+  --shell-bg:#F7F7F7;
+  --white:#FFFFFF;
+}
+body{
+  font-family:"Helvetica Neue","Microsoft YaHei","PingFang SC",Arial,sans-serif;
+  background:#EFEFEF;
+  color:var(--shell-dark);
+  min-height:100vh;
+  padding:12px;
+}
+.canvas{
+  width:min(1560px,calc(100vw - 24px));
+  min-height:calc(100vh - 24px);
+  margin:0 auto;
+  background:var(--white);
+  border-radius:10px;
+  box-shadow:0 10px 34px rgba(0,0,0,.12);
+  overflow:hidden;
+}
+.top-band{height:14px;background:var(--shell-yellow)}
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:16px;
+  padding:18px 24px 12px;
+  align-items:end;
+}
+.title-wrap{
+  background:var(--shell-yellow);
+  border-radius:0 34px 34px 0;
+  padding:16px 24px 16px 28px;
+  position:relative;
+}
+.title-wrap::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:16px;
+  width:7px;
+  height:64px;
+  background:var(--shell-red);
+  border-radius:4px;
+}
+h1{
+  font-size:38px;
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:0;
+}
+.subtitle{
+  margin-top:6px;
+  font-size:14px;
+  font-weight:700;
+}
+.legend{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.legend-card{
+  border:1px solid var(--shell-line);
+  border-radius:8px;
+  padding:9px 10px;
+  background:var(--white);
+  border-top:4px solid var(--shell-yellow);
+}
+.legend-card.p0{border-top-color:var(--shell-red)}
+.legend-card .name{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:3px;
+}
+.legend-card .copy{
+  font-size:11px;
+  line-height:1.3;
+  color:#5b5b5b;
+}
+.flow{
+  padding:0 24px 14px;
+}
+.timeline{
+  display:grid;
+  grid-template-columns:104px repeat(6,minmax(0,1fr));
+  gap:6px;
+}
+.timeline>*{min-width:0}
+.corner{
+  border-radius:8px;
+  background:var(--shell-dark);
+  color:var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:13px;
+  text-align:center;
+}
+.phase{
+  border:1px solid var(--shell-line);
+  border-top:5px solid var(--shell-yellow);
+  border-radius:8px;
+  padding:7px 8px 7px;
+  min-height:62px;
+  background:var(--white);
+  overflow:hidden;
+}
+.phase .idx{
+  font-size:10px;
+  color:#777;
+  font-weight:900;
+}
+.phase .name{
+  margin-top:2px;
+  font-size:15px;
+  font-weight:900;
+  line-height:1.12;
+}
+.phase .time{
+  margin-top:3px;
+  font-size:10px;
+  color:#666;
+  font-weight:700;
+  line-height:1.2;
+}
+.lane-label{
+  border:1px solid var(--shell-line);
+  border-left:5px solid var(--shell-yellow);
+  border-radius:8px;
+  background:var(--shell-bg);
+  min-height:104px;
+  display:flex;
+  align-items:center;
+  padding:8px;
+  font-size:13px;
+  font-weight:900;
+  line-height:1.25;
+  overflow:hidden;
+}
+.lane-label.icem{border-left-color:var(--shell-red)}
+.cell{
+  border:1px solid var(--shell-line);
+  border-radius:8px;
+  background:var(--white);
+  padding:7px 8px;
+  min-height:104px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  overflow:hidden;
+}
+.cell.focus{background:#FFFBE5;border-color:#EAD55B}
+.task{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:5px;
+  align-items:start;
+  font-size:10.8px;
+  line-height:1.27;
+  color:#4a4a4a;
+  font-weight:650;
+}
+.task span:last-child{min-width:0;overflow-wrap:anywhere}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:24px;
+  height:16px;
+  padding:0 4px;
+  border-radius:4px;
+  font-size:9px;
+  font-weight:900;
+  line-height:1;
+}
+.p0tag{background:var(--shell-red);color:var(--white)}
+.p1tag{background:var(--shell-yellow);color:var(--shell-dark)}
+.p2tag{background:#EFEFEF;color:#555;border:1px solid #D8D8D8}
+.gate{
+  margin-top:auto;
+  border-top:1px solid var(--shell-line);
+  padding-top:5px;
+  font-size:10px;
+  color:#666;
+  font-weight:800;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+.gate strong{color:var(--shell-red)}
+.bottom{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:10px;
+  padding:0 24px 18px;
+}
+.panel{
+  border:1px solid var(--shell-line);
+  border-top:5px solid var(--shell-yellow);
+  border-radius:8px;
+  padding:10px 12px;
+  background:var(--white);
+  overflow:hidden;
+}
+.panel.red{border-top-color:var(--shell-red)}
+.panel-title{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.priority-grid{
+  display:grid;
+  grid-template-columns:62px 1fr 112px 82px;
+  gap:5px;
+  align-items:stretch;
+}
+.th,.td{
+  border:1px solid var(--shell-line);
+  border-radius:5px;
+  padding:5px 6px;
+  font-size:10.5px;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+.th{
+  background:var(--shell-bg);
+  font-weight:900;
+  color:#666;
+}
+.td{font-weight:650;color:#4a4a4a}
+.rhythm{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+}
+.rhythm-step{
+  border:1px solid var(--shell-line);
+  border-radius:7px;
+  background:var(--shell-bg);
+  padding:8px;
+  min-height:78px;
+  overflow:hidden;
+}
+.rhythm-step .step{
+  font-size:10px;
+  font-weight:900;
+  color:#777;
+}
+.rhythm-step .what{
+  margin-top:3px;
+  font-size:12px;
+  font-weight:900;
+}
+.rhythm-step .who{
+  margin-top:4px;
+  font-size:10.5px;
+  line-height:1.28;
+  color:#555;
+  font-weight:650;
+  overflow-wrap:anywhere;
+}
+@media (max-width:1100px){
+  body{padding:0}
+  .canvas{width:100vw;min-height:100vh;border-radius:0}
+  .hero,.bottom{grid-template-columns:1fr}
+  .hero{padding:14px 12px 10px}
+  .flow,.bottom{padding-left:12px;padding-right:12px}
+  .timeline{grid-template-columns:82px repeat(6,minmax(0,1fr));gap:4px}
+  h1{font-size:30px}
+  .title-wrap{padding:12px 18px 12px 22px}
+  .legend-card .copy{font-size:10px}
+  .phase .name{font-size:12px}
+  .phase .time{font-size:9px}
+  .lane-label{font-size:11px;padding:6px}
+  .cell{padding:6px;min-height:104px}
+  .task{font-size:9px;line-height:1.2}
+  .gate{font-size:9px}
+  .priority-grid{grid-template-columns:48px 1fr 84px 70px}
+  .rhythm{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="top-band"></div>
+  <div class="hero">
+    <div class="title-wrap">
+      <h1>AI 云中台项目流程图</h1>
+      <div class="subtitle">按阶段、角色和 P0/P1 控制点管理：每个人知道在什么时间做什么</div>
+    </div>
+    <div class="legend">
+      <div class="legend-card p0">
+        <div class="name">P0 阻断项</div>
+        <div class="copy">影响进阶或项目真实性；当天确认责任人，48小时内必须有关闭动作。</div>
+      </div>
+      <div class="legend-card">
+        <div class="name">P1 风险项</div>
+        <div class="copy">影响阶段达标概率；进入周会追踪，本周内关闭或给出替代方案。</div>
+      </div>
+      <div class="legend-card">
+        <div class="name">P2 优化项</div>
+        <div class="copy">不阻断进阶，但用于提升效率、复制经验和沉淀方法。</div>
+      </div>
+      <div class="legend-card">
+        <div class="name">角色口径</div>
+        <div class="copy">DO 管人；DSM 承担部分 DO 角色；DSR 做一线执行。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="timeline">
+      <div class="corner">角色 / 阶段</div>
+      <div class="phase"><div class="idx">T-1 ~ T0</div><div class="name">准备入池</div><div class="time">名单、群、数据源</div></div>
+      <div class="phase"><div class="idx">W0 ~ W3</div><div class="name">初阶 · 抓纪律</div><div class="time">首周优化 + 三周均值</div></div>
+      <div class="phase"><div class="idx">W4 ~ W7</div><div class="name">中阶 · 识机会</div><div class="time">智拜访 × ERP</div></div>
+      <div class="phase"><div class="idx">项目周期</div><div class="name">高阶 · 追爆点</div><div class="time">一个爆点项目</div></div>
+      <div class="phase"><div class="idx">连续4周</div><div class="name">毕业 · 自运营</div><div class="time">经销商自主使用 AI</div></div>
+      <div class="phase"><div class="idx">月度</div><div class="name">持续改善</div><div class="time">不回退，持续闭环</div></div>
+
+      <div class="lane-label icem">ICEM<br>数据分析 / AI 报告 / 辅导校准</div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>定义数据字段、KPI 口径、AI 报告模板和输出频率。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>结合经销商实际情况，确认日报/周报适用场景。</span></div>
+        <div class="gate">控制点：数据和报告口径未统一，不启动。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>基于打卡照片和采集数据输出 AI 日报/周报。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>点出低拜访、低新客、老客超凡不足 DSR 和改善建议。</span></div>
+        <div class="gate">用途：供 RSM/ICAM + DO/DSM 推动 DSR 改善。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>整合智拜访与 ERP，输出机会客户 AI 分析报告。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>识别未拜访、拜访未成交、跟进停滞客户和对应 DSR。</span></div>
+        <div class="gate">用途：支持机会客户拜访 ≥70%、成交 ≥20%。</div>
+      </div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>围绕爆点项目输出 AI 战役日报/周报。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>提示触达、动作、达成卡点，给出下一步攻坚建议。</span></div>
+        <div class="gate">用途：支持触达 ≥90%、动作 ≥80%、达成 ≥80%。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>辅导 RSM/ICAM 与 DO/DSM 读懂 AI 报告并自主复盘。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>抽查报告使用质量，校准问题诊断和改善动作。</span></div>
+        <div class="gate">毕业门槛：能用报告自主推动团队。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p1tag">P1</span><span>月度输出异常回看：指标下滑、机会停滞、建议未闭环。</span></div>
+        <div class="task"><span class="tag p2tag">P2</span><span>沉淀 AI 报告案例和可复制改善动作。</span></div>
+        <div class="gate">目标：经销商持续使用报告改善，不回退。</div>
+      </div>
+
+      <div class="lane-label">RSM/ICAM<br>业务控制 / 协同管理</div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>确认经销商意愿、DO/DSM、DSR 名单和项目群。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>和 DO/DSM 对齐管理节奏与数据负责人。</span></div>
+        <div class="gate">控制点：无人负责，不入池。</div>
+      </div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>和 DO/DSM 每日看 AI 改善报告，锁定低拜访/低新客/超凡不足 DSR。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>推动 DO/DSM 当天安排 DSR 调整路线、补拍、整改陈列。</span></div>
+        <div class="gate">动作：ICAM + DO/DSM 日会纠偏。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>推动智拜访稳定使用，确认 ERP 客户数据回传。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>和 DO/DSM 组织机会客户清单日会追踪。</span></div>
+        <div class="gate">动作：机会清单逐店跟进。</div>
+      </div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>提供业务爆点、产品策略、活动资源和目标边界。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>和 DO/DSM 盯关键客户攻坚、反馈记录、卡点关闭。</span></div>
+        <div class="gate">动作：战役日会 + 关键客户陪访。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>自己会看 AI 报告，并能安排动作。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>带 DO/DSM 完成周复盘和改善清单。</span></div>
+        <div class="gate">动作：从代管转为自主管理。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p1tag">P1</span><span>和 DO/DSM 自主关闭 AI 提醒的异常项。</span></div>
+        <div class="task"><span class="tag p2tag">P2</span><span>把优秀 DSR 动作复制到团队。</span></div>
+        <div class="gate">动作：月度改善清单。</div>
+      </div>
+
+      <div class="lane-label">DO / DSM<br>管人 / 管团队 / 推改善</div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>DO 确认团队责任人；有 DSM 时由 DSM 承担部分团队管理。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>建立日会、周会、DSR 点名和异常追踪机制。</span></div>
+        <div class="gate">输出：管理责任人 + 节奏。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>看 AI 改善报告，推动 DSR 补拜访、补新客、改超凡陈列。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>把问题落实到人、店、动作和当天反馈。</span></div>
+        <div class="gate">输出：DSR 改善动作。</div>
+      </div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>按机会客户清单分配 DSR 目标和拜访优先级。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>追未拜访、拜访未成交、反馈不完整的 DSR。</span></div>
+        <div class="gate">输出：机会跟进台账。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>和 RSM/ICAM 盯爆点项目关键动作和关键客户。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>协调老板、资源、物料和 DSR 人员安排。</span></div>
+        <div class="gate">输出：战役推动记录。</div>
+      </div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>DO/DSM 自己开日会和周复盘，用 AI 报告布置动作。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>追踪责任人、截止时间和改善反馈。</span></div>
+        <div class="gate">输出：自主管理能力。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p1tag">P1</span><span>自主关闭 AI 提醒的异常项。</span></div>
+        <div class="task"><span class="tag p2tag">P2</span><span>复制优秀 DSR 动作，纳入新人训练。</span></div>
+        <div class="gate">输出：持续改善清单。</div>
+      </div>
+
+      <div class="lane-label">DSR<br>一线拜访 / 执行 / 反馈</div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>确认客户清单、照片打卡规则和群内反馈要求。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>熟悉拜访节奏、照片标准和异常反馈方式。</span></div>
+        <div class="gate">输出：执行规则确认。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>每日拜访客户，照片打卡并发项目群，保证真实性。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>按 AI 报告和 DO/DSM 要求调整路线、补新客、改陈列。</span></div>
+        <div class="gate">输出：稳定拜访记录。</div>
+      </div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>使用智拜访记录机会客户拜访。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>反馈成交、未成交原因和下一步动作。</span></div>
+        <div class="gate">输出：机会客户转化记录。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>按战役关键动作执行，不只“到店”。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>记录老板沟通、产品推荐、物料铺设、成交状态。</span></div>
+        <div class="gate">输出：战役结果。</div>
+      </div>
+      <div class="cell focus">
+        <div class="task"><span class="tag p0tag">P0</span><span>参加 DO/DSM 日会和周复盘，按 AI 建议执行改进。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>对本人负责门店给出动作反馈。</span></div>
+        <div class="gate">输出：个人改善记录。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p1tag">P1</span><span>持续跟进 AI 改善清单。</span></div>
+        <div class="task"><span class="tag p2tag">P2</span><span>沉淀优秀案例和新人训练材料。</span></div>
+        <div class="gate">输出：持续改善。</div>
+      </div>
+
+      <div class="lane-label">AI / 数据<br>日报 / 周报 / 预警 / 复盘</div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>初始化名单、字段、KPI、日报/周报模板。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>检查缺字段、重名、门店映射和照片采集问题。</span></div>
+        <div class="gate">输出：基础数据底表。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>日报点名：未出勤、低拜访、低新客、老客超凡不足。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>周报判断三周均值趋势和经销商改进效果。</span></div>
+        <div class="gate">输出：初阶 AI 改善报告。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>生成机会客户清单和拜访/成交追踪。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>识别机会客户未拜访、拜访未成交和改进建议。</span></div>
+        <div class="gate">输出：机会客户 AI 报告。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>每日追踪触达率、动作完成率、目标达成率。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>识别卡点：未拜访、无反馈、推进停滞并给出建议。</span></div>
+        <div class="gate">输出：爆点战役 AI 报告。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p0tag">P0</span><span>统计 AI 工具自主使用、建议闭环、自主复盘。</span></div>
+        <div class="task"><span class="tag p1tag">P1</span><span>输出毕业评审证据。</span></div>
+        <div class="gate">输出：自运营证明。</div>
+      </div>
+      <div class="cell">
+        <div class="task"><span class="tag p1tag">P1</span><span>月度识别下滑指标、停滞机会、未闭环建议。</span></div>
+        <div class="task"><span class="tag p2tag">P2</span><span>形成可复制 SOP 和案例库。</span></div>
+        <div class="gate">输出：持续改善报告。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="panel red">
+      <div class="panel-title">P0 / P1 控制点排序</div>
+      <div class="priority-grid">
+        <div class="th">等级</div><div class="th">触发条件</div><div class="th">主责</div><div class="th">关闭节奏</div>
+        <div class="td"><span class="tag p0tag">P0</span></div><div class="td">数据源、KPI 口径、AI 报告模板未确认；无法形成改善依据。</div><div class="td">ICEM + RSM/ICAM</div><div class="td">启动前关闭</div>
+        <div class="td"><span class="tag p0tag">P0</span></div><div class="td">AI 报告指出 KPI 连续偏离，但 ICAM/DO/DSM 未推动 DSR 改善。</div><div class="td">RSM/ICAM + DO/DSM</div><div class="td">48小时内动作</div>
+        <div class="td"><span class="tag p1tag">P1</span></div><div class="td">数据映射、报告解读、日会执行、机会跟进存在风险但不阻断。</div><div class="td">ICEM + RSM/ICAM + DO/DSM</div><div class="td">本周关闭</div>
+        <div class="td"><span class="tag p2tag">P2</span></div><div class="td">方法优化、优秀案例复制、工具体验提升。</div><div class="td">ICEM</div><div class="td">月度复盘</div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">固定运营节奏</div>
+      <div class="rhythm">
+        <div class="rhythm-step"><div class="step">每日</div><div class="what">日报纠偏</div><div class="who">ICEM 输出 AI 日报；RSM/ICAM + DO/DSM 点名、定动作；DSR 执行。</div></div>
+        <div class="rhythm-step"><div class="step">每周</div><div class="what">周报复盘</div><div class="who">ICEM 输出 AI 周报；RSM/ICAM + DO/DSM 看趋势、判 P0/P1、推改善。</div></div>
+        <div class="rhythm-step"><div class="step">项目期</div><div class="what">战役复盘</div><div class="who">ICEM 输出战役报告；RSM/ICAM + DO/DSM 围绕爆点项目追触达、动作、达成。</div></div>
+        <div class="rhythm-step"><div class="step">月度</div><div class="what">持续改善</div><div class="who">DO/DSM 自主管理，DSR 持续执行，ICEM 通过报告辅导校准。</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
