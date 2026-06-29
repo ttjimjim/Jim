@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 云中台项目材料</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --yellow:#FBCE07;
+  --red:#DD1D21;
+  --dark:#404040;
+  --line:#E4E4E4;
+  --bg:#F5F5F5;
+}
+body{
+  min-height:100vh;
+  font-family:"Helvetica Neue","Microsoft YaHei","PingFang SC",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  padding:24px;
+}
+.page{
+  max-width:1180px;
+  margin:0 auto;
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 12px 36px rgba(0,0,0,.12);
+}
+.band{height:18px;background:var(--yellow)}
+.hero{
+  background:var(--yellow);
+  border-radius:0 0 48px 0;
+  padding:42px 52px 38px;
+  position:relative;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  left:28px;
+  top:42px;
+  width:7px;
+  height:96px;
+  border-radius:5px;
+  background:var(--red);
+}
+h1{
+  font-size:52px;
+  line-height:1.05;
+  font-weight:900;
+  padding-left:22px;
+  letter-spacing:0;
+}
+.subtitle{
+  margin-top:12px;
+  padding-left:22px;
+  font-size:18px;
+  line-height:1.45;
+  font-weight:700;
+}
+.content{
+  padding:34px 52px 46px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.card{
+  display:block;
+  text-decoration:none;
+  color:var(--dark);
+  border:1px solid var(--line);
+  border-top:8px solid var(--yellow);
+  border-radius:8px;
+  padding:24px;
+  min-height:220px;
+  transition:.18s ease;
+}
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(0,0,0,.12);
+}
+.card.red{border-top-color:var(--red)}
+.label{
+  display:inline-flex;
+  align-items:center;
+  height:28px;
+  padding:0 10px;
+  border-radius:4px;
+  background:var(--yellow);
+  color:var(--dark);
+  font-size:13px;
+  font-weight:900;
+}
+.card.red .label{background:var(--red);color:#fff}
+.title{
+  margin-top:18px;
+  font-size:30px;
+  font-weight:900;
+  line-height:1.15;
+}
+.copy{
+  margin-top:12px;
+  font-size:16px;
+  line-height:1.5;
+  font-weight:650;
+  color:#555;
+}
+.note{
+  margin-top:28px;
+  border-left:6px solid var(--yellow);
+  background:#FAFAFA;
+  padding:16px 18px;
+  font-size:14px;
+  line-height:1.55;
+  font-weight:700;
+  color:#666;
+}
+@media(max-width:760px){
+  body{padding:0}
+  .page{min-height:100vh;border-radius:0}
+  .hero,.content{padding-left:24px;padding-right:24px}
+  .hero:before{left:16px}
+  h1{font-size:38px}
+  .cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="band"></div>
+  <div class="hero">
+    <h1>AI 云中台项目材料</h1>
+    <div class="subtitle">四阶运营报告与 ICEM / RSM/ICAM / DO/DSM / DSR 项目流程图</div>
+  </div>
+  <div class="content">
+    <div class="cards">
+      <a class="card red" href="./ai-cloud-center-deck.html">
+        <span class="label">报告版</span>
+        <div class="title">AI 云中台四阶策略</div>
+        <div class="copy">用于完整查看四阶框架、KPI、进阶条件、角色分工、数据来源和参与名单。</div>
+      </a>
+      <a class="card" href="./ai-cloud-center-flow.html">
+        <span class="label">流程图版</span>
+        <div class="title">项目执行流程图</div>
+        <div class="copy">按阶段、角色和 P0/P1 控制点展示每个人在什么时间需要做什么。</div>
+      </a>
+    </div>
+    <div class="note">对外分享时，只需要把整个文件夹上传到静态网页服务，并发送首页链接。</div>
+  </div>
+</div>
+</body>
+</html>
